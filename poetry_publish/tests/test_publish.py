@@ -1,7 +1,9 @@
+from pathlib import Path
 from unittest.mock import patch
 
 import pytest
 
+import poetry_publish
 from poetry_publish.self import publish_poetry_publish
 
 
@@ -41,6 +43,14 @@ class MockCheckOutput:
         return self.behaviour.pop(' '.join(args))
 
 
+def fake_poetry_publish(version, creole_readme=True):
+    poetry_publish.publish.poetry_publish(
+        package_root=Path(poetry_publish.__file__).parent.parent,
+        version=version,
+        creole_readme=creole_readme
+    )
+
+
 def test_publish_on_master():
     mock_confirm = MockConfirm(behaviour=[])  # nothing to confirm
     mock_check_output = MockCheckOutput(behaviour={
@@ -58,11 +68,10 @@ def test_publish_on_master():
     with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
         with patch('subprocess.check_call', MockCheckCall()) as check_call:
             with patch('subprocess.check_output', mock_check_output) as check_output:
-                with patch('poetry_publish.__version__', '1.2.3'):
-                    publish_poetry_publish()
+                fake_poetry_publish(version='1.2.3', creole_readme=True)
 
     assert check_call.calls == [
-        f'poetry version 1.2.3',
+        'poetry version 1.2.3',
         'git fetch --all',
         'git push',
         'poetry publish',
@@ -82,9 +91,8 @@ def test_publish_abort_on_dev_version(capsys):
     with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
         with patch('subprocess.check_call', MockCheckCall()) as check_call:
             with patch('subprocess.check_output', mock_check_output) as check_output:
-                with patch('poetry_publish.__version__', '1.2.3.dev0'):
-                    with pytest.raises(SystemExit) as exit:
-                        publish_poetry_publish()
+                with pytest.raises(SystemExit) as exit:
+                    fake_poetry_publish(version='1.2.3.dev0', creole_readme=True)
 
     # Check exit from confirm():
     out, err = capsys.readouterr()
@@ -115,8 +123,7 @@ def test_publish_confirm_dev_version():
     with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
         with patch('subprocess.check_call', MockCheckCall()) as check_call:
             with patch('subprocess.check_output', mock_check_output) as check_output:
-                with patch('poetry_publish.__version__', '1.2.3.dev1'):
-                    publish_poetry_publish()
+                fake_poetry_publish(version='1.2.3.dev1', creole_readme=True)
 
     assert check_call.calls == [
         f'poetry version 1.2.3.dev1',
@@ -144,9 +151,8 @@ def test_publish_abort_not_on_master(capsys):
     with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
         with patch('subprocess.check_call', MockCheckCall()) as check_call:
             with patch('subprocess.check_output', mock_check_output) as check_output:
-                with patch('poetry_publish.__version__', '1.2.3'):
-                    with pytest.raises(SystemExit) as exit:
-                        publish_poetry_publish()
+                with pytest.raises(SystemExit) as exit:
+                    fake_poetry_publish(version='1.2.3', creole_readme=True)
 
     # Check exit from confirm():
     out, err = capsys.readouterr()
@@ -177,11 +183,10 @@ def test_publish_confirm_not_on_master(capsys):
     with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
         with patch('subprocess.check_call', MockCheckCall()) as check_call:
             with patch('subprocess.check_output', mock_check_output) as check_output:
-                with patch('poetry_publish.__version__', '1.2.3'):
-                    publish_poetry_publish()
+                fake_poetry_publish(version='1.2.3', creole_readme=True)
 
     assert check_call.calls == [
-        f'poetry version 1.2.3',
+        'poetry version 1.2.3',
         'git fetch --all',
         'git push',
         'poetry publish',
@@ -207,9 +212,8 @@ def test_publish_abort_git_not_clean(capsys):
     with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
         with patch('subprocess.check_call', MockCheckCall()) as check_call:
             with patch('subprocess.check_output', mock_check_output) as check_output:
-                with patch('poetry_publish.__version__', '1.2.3'):
-                    with pytest.raises(SystemExit) as exit:
-                        publish_poetry_publish()
+                with pytest.raises(SystemExit) as exit:
+                    fake_poetry_publish(version='1.2.3', creole_readme=True)
 
     # Check exit from confirm():
     out, err = capsys.readouterr()
@@ -237,9 +241,8 @@ def test_publish_abort_poetry_check_failed(capsys):
     with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
         with patch('subprocess.check_call', MockCheckCall()) as check_call:
             with patch('subprocess.check_output', mock_check_output) as check_output:
-                with patch('poetry_publish.__version__', '1.2.3'):
-                    with pytest.raises(SystemExit) as exit:
-                        publish_poetry_publish()
+                with pytest.raises(SystemExit) as exit:
+                    fake_poetry_publish(version='1.2.3', creole_readme=True)
 
     # Check exit from confirm():
     out, err = capsys.readouterr()
@@ -270,11 +273,10 @@ def test_publish_confim_poetry_check_failed(capsys):
     with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
         with patch('subprocess.check_call', MockCheckCall()) as check_call:
             with patch('subprocess.check_output', mock_check_output) as check_output:
-                with patch('poetry_publish.__version__', '1.2.3'):
-                    publish_poetry_publish()
+                fake_poetry_publish(version='1.2.3', creole_readme=True)
 
     assert check_call.calls == [
-        f'poetry version 1.2.3',
+        'poetry version 1.2.3',
         'git fetch --all',
         'git push',
         'poetry publish',
@@ -303,9 +305,8 @@ def test_publish_abort_repro_not_up_to_date(capsys):
     with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
         with patch('subprocess.check_call', MockCheckCall()) as check_call:
             with patch('subprocess.check_output', mock_check_output) as check_output:
-                with patch('poetry_publish.__version__', '1.2.3'):
-                    with pytest.raises(SystemExit) as exit:
-                        publish_poetry_publish()
+                with pytest.raises(SystemExit) as exit:
+                    fake_poetry_publish(version='1.2.3', creole_readme=True)
 
     # Check exit from confirm():
     out, err = capsys.readouterr()
@@ -316,7 +317,7 @@ def test_publish_abort_repro_not_up_to_date(capsys):
     assert exit.value.code == 2
 
     assert check_call.calls == [
-        f'poetry version 1.2.3',
+        'poetry version 1.2.3',
         'git fetch --all',
     ]
     assert check_output.behaviour == {}
@@ -342,18 +343,52 @@ def test_publish_abort_tag_exists(capsys):
     with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
         with patch('subprocess.check_call', MockCheckCall()) as check_call:
             with patch('subprocess.check_output', mock_check_output) as check_output:
-                with patch('poetry_publish.__version__', '1.2.3'):
-                    with pytest.raises(SystemExit) as exit:
-                        publish_poetry_publish()
+                with pytest.raises(SystemExit) as exit:
+                    fake_poetry_publish(version='1.2.3', creole_readme=True)
 
     out, err = capsys.readouterr()
     assert "*** ERROR: git tag 'v1.2.3' already exists!" in out
     assert exit.value.code == 3
 
     assert check_call.calls == [
-        f'poetry version 1.2.3',
+        'poetry version 1.2.3',
         'git fetch --all',
         'git push',
+    ]
+    assert check_output.behaviour == {}
+
+    assert confirm.call_count == 0
+    assert confirm.calls == []
+
+
+def test_publish_poetry_publish():
+    mock_confirm = MockConfirm(behaviour=[])  # nothing to confirm
+    mock_check_output = MockCheckOutput(behaviour={
+        'git branch --no-color': (
+            '  develop\n'
+            '* master'
+        ),  # we are not on master
+        'git status --porcelain': '',  # it's clean
+        'poetry check': 'All set!',  # all ok
+        'git log HEAD..origin/master --oneline': '',  # no changes
+        'poetry build': '',  # build ok
+        'git tag': 'v0.0.1\nv0.0.2',  # version doesn't exist, yet
+    })
+
+    with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
+        with patch('subprocess.check_call', MockCheckCall()) as check_call:
+            with patch('subprocess.check_output', mock_check_output) as check_output:
+                with patch('poetry_publish.__version__', '1.2.3'):
+                    publish_poetry_publish()
+
+    assert check_call.calls == [
+        'make fix-code-style',
+        'poetry version 1.2.3',
+        'git fetch --all',
+        'git push',
+        'poetry publish',
+        f'git tag v1.2.3',
+        'git push --tags'
     ]
     assert check_output.behaviour == {}
 
