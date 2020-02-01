@@ -30,23 +30,24 @@ Compatible Python Versions (see `tox.ini <https://github.com/jedie/poetry-publis
 
 * PyPy3
 
-+-----------------------------------+
-| |Build Status on github|          |
-+-----------------------------------+
-| |Build Status on travis-ci.org|   |
-+-----------------------------------+
-| |Coverage Status on coveralls.io| |
-+-----------------------------------+
-| |Status on landscape.io|          |
-+-----------------------------------+
-| |PyPi version|                    |
-+-----------------------------------+
++---------------------------------+----------------------------------------------------+
+| |Build Status on github|        | `github.com/jedie/poetry-publish/actions`_         |
++---------------------------------+----------------------------------------------------+
+| |Build Status on travis-ci.org| | `travis-ci.org/jedie/poetry-publish`_              |
++---------------------------------+----------------------------------------------------+
+| |Coverage Status on codecov.io| | `codecov.io/gh/jedie/poetry-publish`_              |
++---------------------------------+----------------------------------------------------+
+| |Status on landscape.io|        | `landscape.io/github/jedie/poetry-publish/master`_ |
++---------------------------------+----------------------------------------------------+
+| |PyPi version|                  | `pypi.org/project/poetry-publish/`_                |
++---------------------------------+----------------------------------------------------+
 
 .. |Build Status on github| image:: https://github.com/jedie/poetry-publish/workflows/test/badge.svg?branch=master
+.. _github.com/jedie/poetry-publish/actions: https://github.com/jedie/poetry-publish/actions?query=workflow%3Atest
 .. |Build Status on travis-ci.org| image:: https://travis-ci.org/jedie/poetry-publish.svg
 .. _travis-ci.org/jedie/poetry-publish: https://travis-ci.org/jedie/poetry-publish/
-.. |Coverage Status on coveralls.io| image:: https://coveralls.io/repos/jedie/poetry-publish/badge.svg
-.. _coveralls.io/r/jedie/poetry-publish: https://coveralls.io/r/jedie/poetry-publish
+.. |Coverage Status on codecov.io| image:: https://codecov.io/gh/jedie/poetry-publish/branch/master/graph/badge.svg
+.. _codecov.io/gh/jedie/poetry-publish: https://codecov.io/gh/jedie/poetry-publish
 .. |Status on landscape.io| image:: https://landscape.io/github/jedie/poetry-publish/master/landscape.svg
 .. _landscape.io/github/jedie/poetry-publish/master: https://landscape.io/github/jedie/poetry-publish/master
 .. |PyPi version| image:: https://badge.fury.io/py/poetry-publish.svg
@@ -186,4 +187,4 @@ donation
 
 ------------
 
-``Note: this file is generated from README.creole 2020-02-01 20:14:50 with "python-creole"``
+``Note: this file is generated from README.creole 2020-02-01 21:46:34 with "python-creole"``
