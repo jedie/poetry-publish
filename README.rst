@@ -145,11 +145,17 @@ To see all make targets, just call ``make``:
 history
 =======
 
-* *dev* - `compare v0.2.0...master <https://github.com/jedie/poetry-publish/compare/v0.2.0...master>`_ 
+* *dev* - `compare v0.2.1...master <https://github.com/jedie/poetry-publish/compare/v0.2.1...master>`_ 
 
     * TBC
 
-* v0.2.0 - 2020-02-01 - `compare 92e584ed8532c577feb971a5d8630cc1929ad6eb...v0.2.0 <https://github.com/jedie/poetry-publish/compare/92e584ed8532c577feb971a5d8630cc1929ad6eb...v0.2.0>`_ 
+* v0.2.1 - 2020-02-01 - `compare v0.2.0...v0.2.1 <https://github.com/jedie/poetry-publish/compare/v0.2.0...v0.2.1>`_ 
+
+    * fix code style
+
+    * update README
+
+* v0.2.0 - 2020-02-01 - `compare 92e584...v0.2.0 <https://github.com/jedie/poetry-publish/compare/92e584ed8532c577feb971a5d8630cc1929ad6eb...v0.2.0>`_ 
 
     * first released version cut out from `python-creole <https://github.com/jedie/python-creole>`_
 
@@ -160,12 +166,12 @@ Project links
 -------------
 
 +--------+---------------------------------------------+
-| GitHub | `https://github.com/jedie/poetry-publish`_  |
+| GitHub | `https://github.com/jedie/poetry-publish/`_ |
 +--------+---------------------------------------------+
 | PyPi   | `https://pypi.org/project/poetry-publish/`_ |
 +--------+---------------------------------------------+
 
-.. _https://github.com/jedie/poetry-publish: https://github.com/jedie/poetry-publish
+.. _https://github.com/jedie/poetry-publish/: https://github.com/jedie/poetry-publish/
 .. _https://pypi.org/project/poetry-publish/: https://pypi.org/project/poetry-publish/
 
 --------
@@ -180,4 +186,4 @@ donation
 
 ------------
 
-``Note: this file is generated from README.creole 2020-02-01 20:06:56 with "python-creole"``
+``Note: this file is generated from README.creole 2020-02-01 20:14:50 with "python-creole"``

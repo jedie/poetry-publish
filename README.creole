@@ -110,9 +110,12 @@ publish              Release new version to PyPi
 
 = history =
 
-* *dev* - [[https://github.com/jedie/poetry-publish/compare/v0.2.0...master|compare v0.2.0...master]]
+* *dev* - [[https://github.com/jedie/poetry-publish/compare/v0.2.1...master|compare v0.2.1...master]]
 ** TBC
-* v0.2.0 - 2020-02-01 - [[https://github.com/jedie/poetry-publish/compare/92e584ed8532c577feb971a5d8630cc1929ad6eb...v0.2.0|compare 92e584ed8532c577feb971a5d8630cc1929ad6eb...v0.2.0]]
+* v0.2.1 - 2020-02-01 - [[https://github.com/jedie/poetry-publish/compare/v0.2.0...v0.2.1|compare v0.2.0...v0.2.1]]
+** fix code style
+** update README
+* v0.2.0 - 2020-02-01 - [[https://github.com/jedie/poetry-publish/compare/92e584ed8532c577feb971a5d8630cc1929ad6eb...v0.2.0|compare 92e584...v0.2.0]]
 ** first released version cut out from [[https://github.com/jedie/python-creole|python-creole]]
 
 first source code was written 27.11.2008: [[http://www.python-forum.de/viewtopic.php?f=3&t=16742|Forum thread (de)]]
@@ -120,7 +123,7 @@ first source code was written 27.11.2008: [[http://www.python-forum.de/viewtopic
 
 == Project links ==
 
-| GitHub        | [[https://github.com/jedie/poetry-publish]]
+| GitHub        | [[https://github.com/jedie/poetry-publish/]]
 | PyPi          | [[https://pypi.org/project/poetry-publish/]]
 
 
