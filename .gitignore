@@ -1,13 +1,12 @@
-/.git
+.*
+!.editorconfig
+!.flake8
+!.travis.yml
+
 *.py[co]
 *~
-*.egg-info
 /dist
 /build
 /publish.log
 
-.idea
 /poetry.lock
-/.coverage
-
-.tox
