@@ -115,9 +115,7 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
     git_tag = f'v{version}'
 
     print('\ncheck git tag')
-    call_info, output = verbose_check_output(
-        'git', 'log', 'HEAD..origin/master', '--oneline',
-    )
+    call_info, output = verbose_check_output('git', 'tag')
     if git_tag in output:
         print(f'\n *** ERROR: git tag {git_tag!r} already exists!')
         print(output)
