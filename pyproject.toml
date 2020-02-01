@@ -1,8 +1,25 @@
 [tool.poetry]
 name = "poetry-publish"
-version = "0.1.0.dev3"
-description = ""
+version = "0.1.0"
+description = "Helper to build and upload a project that used poetry to PyPi, with prechecks"
 authors = ["JensDiemer <git@jensdiemer.de>"]
+keywords=['poetry']
+classifiers = [
+    # http://pypi.python.org/pypi?%3Aaction=list_classifiers
+    'Development Status :: 4 - Beta',
+#    'Development Status :: 5 - Production/Stable',
+    'Environment :: Console',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: Implementation :: PyPy',
+    'Operating System :: OS Independent',
+    'Topic :: Software Development :: Libraries :: Python Modules',
+    'Topic :: Utilities',
+]
 
 [tool.poetry.dependencies]
 python = "^3.6"
