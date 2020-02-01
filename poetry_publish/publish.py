@@ -48,6 +48,9 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
             confirm(f'WARNING: Version contains {key!r}: v{version}\n')
             break
 
+    print(f'\nSet version in "pyproject.toml" to: v{version}')
+    verbose_check_call('poetry', 'version', version)
+
     print('\nCheck if we are on "master" branch:')
     call_info, output = verbose_check_output('git', 'branch', '--no-color')
     print(f'\t{call_info}')
@@ -95,9 +98,6 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
             shutil.rmtree(path)
     rmtree('./dist')
     rmtree('./build')
-
-    print(f'\nSet new version to: v{version}')
-    verbose_check_call('poetry', 'version', version)
 
     print('\nbuild but do not upload...')
 
