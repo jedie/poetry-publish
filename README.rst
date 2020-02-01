@@ -152,6 +152,14 @@ history
 
 * v0.2.1 - 2020-02-01 - `compare v0.2.0...v0.2.1 <https://github.com/jedie/poetry-publish/compare/v0.2.0...v0.2.1>`_ 
 
+    * call "poetry version" after "branch is master" check
+
+    * add many tests
+
+    * test with PyPy v3, too
+
+    * Upload coverage reports
+
     * fix code style
 
     * update README
@@ -187,4 +195,4 @@ donation
 
 ------------
 
-``Note: this file is generated from README.creole 2020-02-01 21:46:34 with "python-creole"``
+``Note: this file is generated from README.creole 2020-02-01 22:03:52 with "python-creole"``

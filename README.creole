@@ -113,6 +113,10 @@ publish              Release new version to PyPi
 * *dev* - [[https://github.com/jedie/poetry-publish/compare/v0.2.1...master|compare v0.2.1...master]]
 ** TBC
 * v0.2.1 - 2020-02-01 - [[https://github.com/jedie/poetry-publish/compare/v0.2.0...v0.2.1|compare v0.2.0...v0.2.1]]
+** call "poetry version" after "branch is master" check
+** add many tests
+** test with PyPy v3, too
+** Upload coverage reports
 ** fix code style
 ** update README
 * v0.2.0 - 2020-02-01 - [[https://github.com/jedie/poetry-publish/compare/92e584ed8532c577feb971a5d8630cc1929ad6eb...v0.2.0|compare 92e584...v0.2.0]]
