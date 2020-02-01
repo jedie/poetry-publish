@@ -1,8 +1,9 @@
 from pathlib import Path
 
+from creole.setup_utils import update_rst_readme
+
 import poetry_publish
 import poetry_publish.publish
-from creole.setup_utils import update_rst_readme
 
 
 def update_poetry_publish_readme():
