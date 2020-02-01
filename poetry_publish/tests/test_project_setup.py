@@ -39,5 +39,5 @@ def test_version(package_root=None, version=None):
 
     assert_file_contains_string(
         file_path=Path(package_root, 'pyproject.toml'),
-        string=f"version = '{version}'"
+        string=f'version = "{version}"'
     )
