@@ -1,10 +1,9 @@
 from pathlib import Path
 
-from creole import __version__
+import poetry_publish
+import poetry_publish.publish
 from creole.setup_utils import update_rst_readme
-from creole.tests.test_project_setup import test_version
-
-from poetry_publish.publish import poetry_publish
+from poetry_publish.tests.test_project_setup import test_version
 
 
 def update_poetry_publish_readme():
@@ -21,7 +20,7 @@ def publish_poetry_publish():
             $ poetry run publish
     """
     test_version()
-    poetry_publish(
-        package_root=Path(__file__).parent.parent,
-        version=__version__,
+    poetry_publish.publish.poetry_publish(
+        package_root=Path(poetry_publish.__file__).parent.parent,
+        version=poetry_publish.__version__,
     )
