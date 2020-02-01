@@ -5,6 +5,7 @@
 !.flake8
 !.travis.yml
 
+coverage.xml
 *.egg-info
 *.py[co]
 *~
