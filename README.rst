@@ -53,9 +53,72 @@ Compatible Python Versions (see `tox.ini <https://github.com/jedie/poetry-publis
 .. |PyPi version| image:: https://badge.fury.io/py/poetry-publish.svg
 .. _pypi.org/project/poetry-publish/: https://pypi.org/project/poetry-publish/
 
------
-usage
------
+-------
+example
+-------
+
+::
+
+    ~/repos/python-creole$ poetry run publish
+    
+    Check if we are on "master" branch:
+    	Call: 'git branch --no-color'
+    OK
+    
+    Set version in "pyproject.toml" to: v1.4.3
+    	Call: 'poetry version 1.4.3'
+    
+    Bumping version from 1.4.3 to 1.4.3
+    
+    check if if git repro is clean:
+    	Call: 'git status --porcelain'
+    OK
+    
+    Run "poetry check":
+    OK
+    
+    check if pull is needed
+    	Call: 'git fetch --all'
+    
+    Fordere an von origin
+    	Call: 'git log HEAD..origin/master --oneline'
+    OK
+    	Call: 'git push'
+    
+    Everything up-to-date
+    
+    Cleanup old builds:
+    	remove tree: /home/jens/repos/python-creole/dist
+    
+    build but do not upload...
+    	Call: 'poetry build'
+    Build log file is here: 'publish.log'
+    
+    check git tag
+    OK
+    
+    Upload to PyPi via poetry:
+    	Call: 'poetry publish'
+    
+    
+    Publishing python-creole (1.4.3) to PyPI
+     - Uploading python-creole-1.4.3.tar.gz 100%
+     - Uploading python_creole-1.4.3-py3-none-any.whl 100%
+    
+    git tag version
+    	Call: 'git tag v1.4.3'
+    
+    
+    git push tag to server
+    	Call: 'git push --tags'
+    
+    Total 0 (delta 0), reused 0 (delta 0)
+    To github.com:jedie/python-creole.git
+     * [new tag]         v1.4.3 -> v1.4.3
+
+-----------------------
+setup usage in projects
+-----------------------
 
 Create a publish hook in you project, e.g. create ``your_project/publish.py`` with:
 
@@ -199,4 +262,4 @@ donation
 
 ------------
 
-``Note: this file is generated from README.creole 2020-02-01 22:16:57 with "python-creole"``
+``Note: this file is generated from README.creole 2020-02-01 23:18:33 with "python-creole"``
