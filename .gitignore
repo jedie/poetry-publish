@@ -1,0 +1,13 @@
+/.git
+*.py[co]
+*~
+*.egg-info
+/dist
+/build
+/publish.log
+
+.idea
+/poetry.lock
+/.coverage
+
+.tox
