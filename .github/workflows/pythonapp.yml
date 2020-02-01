@@ -44,3 +44,8 @@ jobs:
       run: |
         source $HOME/.poetry/env
         make pytest
+
+    - name: 'Upload coverage report'
+      run: |
+        ls -la
+        bash <(curl -s https://codecov.io/bash)

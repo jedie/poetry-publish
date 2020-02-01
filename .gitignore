@@ -1,5 +1,6 @@
 .*
 !.github
+!.coveragerc
 !.editorconfig
 !.flake8
 !.travis.yml
