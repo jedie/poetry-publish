@@ -110,8 +110,10 @@ publish              Release new version to PyPi
 
 = history =
 
-* *dev* - [[https://github.com/jedie/poetry-publish/compare/v0.2.1...master|compare v0.2.1...master]]
+* *dev* - [[https://github.com/jedie/poetry-publish/compare/v0.2.2...master|compare v0.2.2...master]]
 ** TBC
+* v0.2.2 - 2020-02-01 - [[https://github.com/jedie/poetry-publish/compare/v0.2.1...v0.2.2|compare v0.2.1...v0.2.2]]
+** Fix missing project description on PyPi
 * v0.2.1 - 2020-02-01 - [[https://github.com/jedie/poetry-publish/compare/v0.2.0...v0.2.1|compare v0.2.0...v0.2.1]]
 ** call "poetry version" after "branch is master" check
 ** add many tests

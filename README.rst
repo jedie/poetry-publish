@@ -146,9 +146,13 @@ To see all make targets, just call ``make``:
 history
 =======
 
-* *dev* - `compare v0.2.1...master <https://github.com/jedie/poetry-publish/compare/v0.2.1...master>`_ 
+* *dev* - `compare v0.2.2...master <https://github.com/jedie/poetry-publish/compare/v0.2.2...master>`_ 
 
     * TBC
+
+* v0.2.2 - 2020-02-01 - `compare v0.2.1...v0.2.2 <https://github.com/jedie/poetry-publish/compare/v0.2.1...v0.2.2>`_ 
+
+    * Fix missing project description on PyPi
 
 * v0.2.1 - 2020-02-01 - `compare v0.2.0...v0.2.1 <https://github.com/jedie/poetry-publish/compare/v0.2.0...v0.2.1>`_ 
 
@@ -195,4 +199,4 @@ donation
 
 ------------
 
-``Note: this file is generated from README.creole 2020-02-01 22:03:52 with "python-creole"``
+``Note: this file is generated from README.creole 2020-02-01 22:16:57 with "python-creole"``
