@@ -19,11 +19,11 @@ def verbose_check_output(*args, log=None):
     return call_info, output
 
 
-def verbose_check_call(*args):
+def verbose_check_call(*args, **kwargs):
     """ 'verbose' version of subprocess.check_call() """
     print('\tCall: %r\n' % ' '.join(args))
-    subprocess.check_call(
-        args,
+    kwargs.update(dict(
         universal_newlines=True,
         env=os.environ
-    )
+    ))
+    subprocess.check_call(args, **kwargs)

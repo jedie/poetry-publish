@@ -127,7 +127,7 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
 
     print('\nUpload to PyPi via poetry:')
     args = ['poetry', 'publish'] + sys.argv[1:]
-    verbose_check_call(*args)
+    verbose_check_call(*args, shell=True)
 
     print('\ngit tag version')
     verbose_check_call('git', 'tag', git_tag)
