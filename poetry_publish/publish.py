@@ -12,6 +12,7 @@ import shutil
 import sys
 
 from creole.setup_utils import update_rst_readme
+
 from poetry_publish.utils.interactive import confirm
 from poetry_publish.utils.subprocess_utils import verbose_check_call, verbose_check_output
 
@@ -47,6 +48,9 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
         if key in version:
             confirm(f'WARNING: Version contains {key!r}: v{version}\n')
             break
+
+    print(f'\nSet version in "pyproject.toml" to: v{version}')
+    verbose_check_call('poetry', 'version', version)
 
     print('\nCheck if we are on "master" branch:')
     call_info, output = verbose_check_output('git', 'branch', '--no-color')
@@ -96,9 +100,6 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
     rmtree('./dist')
     rmtree('./build')
 
-    print(f'\nSet new version to: v{version}')
-    verbose_check_call('poetry', 'version', version)
-
     print('\nbuild but do not upload...')
 
     with open(log_filename, 'a') as log:
@@ -115,9 +116,7 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
     git_tag = f'v{version}'
 
     print('\ncheck git tag')
-    call_info, output = verbose_check_output(
-        'git', 'log', 'HEAD..origin/master', '--oneline',
-    )
+    call_info, output = verbose_check_output('git', 'tag')
     if git_tag in output:
         print(f'\n *** ERROR: git tag {git_tag!r} already exists!')
         print(output)

@@ -1,3 +1,4 @@
+import os
 import subprocess
 
 
@@ -6,7 +7,8 @@ def verbose_check_output(*args, log=None):
     call_info = 'Call: %r' % ' '.join(args)
     try:
         output = subprocess.check_output(
-            args, universal_newlines=True, stderr=subprocess.STDOUT
+            args, universal_newlines=True, env=os.environ,
+            stderr=subprocess.STDOUT
         )
     except subprocess.CalledProcessError as err:
         print('\n***ERROR:')
@@ -20,4 +22,8 @@ def verbose_check_output(*args, log=None):
 def verbose_check_call(*args):
     """ 'verbose' version of subprocess.check_call() """
     print('\tCall: %r\n' % ' '.join(args))
-    subprocess.check_call(args, universal_newlines=True)
+    subprocess.check_call(
+        args,
+        universal_newlines=True,
+        env=os.environ
+    )
