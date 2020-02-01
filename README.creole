@@ -19,7 +19,7 @@ Compatible Python Versions (see [[https://github.com/jedie/poetry-publish/blob/m
  * 3.8, 3.7, 3.6
  * PyPy3
 
-| {{https://github.com/jedie/poetry-publish/workflows/test/badge.svg?branch=master|Build Status on github}} ||
+| {{https://github.com/jedie/poetry-publish/workflows/test/badge.svg?branch=master|Build Status on github}} | [[https://github.com/jedie/poetry-publish/actions?query=workflow%3Atest|github.com/jedie/poetry-publish/actions]] |
 | {{https://travis-ci.org/jedie/poetry-publish.svg|Build Status on travis-ci.org}} | [[https://travis-ci.org/jedie/poetry-publish/|travis-ci.org/jedie/poetry-publish]] |
 | {{https://coveralls.io/repos/jedie/poetry-publish/badge.svg|Coverage Status on coveralls.io}} | [[https://coveralls.io/r/jedie/poetry-publish|coveralls.io/r/jedie/poetry-publish]] |
 | {{https://landscape.io/github/jedie/poetry-publish/master/landscape.svg|Status on landscape.io}} | [[https://landscape.io/github/jedie/poetry-publish/master|landscape.io/github/jedie/poetry-publish/master]] |
