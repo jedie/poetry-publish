@@ -25,18 +25,18 @@ install-poetry: ## install or update poetry
 		curl -sSL "https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py" | python3 ; \
 	fi
 
-install: check-poetry ## install python-creole via poetry
+install: check-poetry ## install python-poetry_publish via poetry
 	poetry install
 
 lint: ## Run code formatters and linter
-	poetry run flynt --fail-on-change --line_length=${MAX_LINE_LENGTH} creole
-	poetry run isort --check-only --recursive creole
-	poetry run flake8 creole
+	poetry run flynt --fail-on-change --line_length=${MAX_LINE_LENGTH} poetry_publish
+	poetry run isort --check-only --recursive poetry_publish
+	poetry run flake8 poetry_publish
 
 fix-code-style: ## Fix code formatting
-	poetry run flynt --line_length=${MAX_LINE_LENGTH} creole
-	poetry run isort --apply --recursive creole
-	poetry run autopep8 --ignore-local-config --max-line-length=${MAX_LINE_LENGTH} --aggressive --aggressive --in-place --recursive creole
+	poetry run flynt --line_length=${MAX_LINE_LENGTH} poetry_publish
+	poetry run isort --apply --recursive poetry_publish
+	poetry run autopep8 --ignore-local-config --max-line-length=${MAX_LINE_LENGTH} --aggressive --aggressive --in-place --recursive poetry_publish
 
 tox-listenvs: check-poetry ## List all tox test environments
 	poetry run tox --listenvs
