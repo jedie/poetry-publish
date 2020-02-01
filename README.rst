@@ -123,13 +123,13 @@ To see all make targets, just call ``make``:
 history
 =======
 
-* *dev* - `compare v0.1.0...master <https://github.com/jedie/poetry-publish/compare/v0.1.0...master>`_ 
+* *dev* - `compare v0.2.0...master <https://github.com/jedie/poetry-publish/compare/v0.2.0...master>`_ 
 
     * TBC
 
-* v0.1.0 - 2020-02-01 - `compare 92e584ed8532c577feb971a5d8630cc1929ad6eb...v0.1.0 <https://github.com/jedie/poetry-publish/compare/92e584ed8532c577feb971a5d8630cc1929ad6eb...v0.1.0>`_ 
+* v0.2.0 - 2020-02-01 - `compare 92e584ed8532c577feb971a5d8630cc1929ad6eb...v0.2.0 <https://github.com/jedie/poetry-publish/compare/92e584ed8532c577feb971a5d8630cc1929ad6eb...v0.2.0>`_ 
 
-    * first version cut out from `python-creole <https://github.com/jedie/python-creole>`_
+    * first released version cut out from `python-creole <https://github.com/jedie/python-creole>`_
 
 first source code was written 27.11.2008: `Forum thread (de) <http://www.python-forum.de/viewtopic.php?f=3&t=16742>`_
 
@@ -158,4 +158,4 @@ donation
 
 ------------
 
-``Note: this file is generated from README.creole 2020-02-01 17:38:00 with "python-creole"``
+``Note: this file is generated from README.creole 2020-02-01 20:01:37 with "python-creole"``
