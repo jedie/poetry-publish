@@ -2,128 +2,360 @@ from unittest.mock import patch
 
 import pytest
 
-from poetry_publish import __version__
 from poetry_publish.self import publish_poetry_publish
-from poetry_publish.utils.subprocess_utils import verbose_check_output
+
+
+class MockConfirm:
+    def __init__(self, behaviour):
+        self.behaviour = behaviour
+        self.call_count = 0
+        self.calls = []
+
+    def __call__(self, txt):
+        print(txt, end=' ')
+        self.call_count += 1
+
+        txt = txt.strip()
+        txt = txt.rsplit('\n', 1)[0]
+        txt = txt.strip()
+        self.calls.append(txt)
+
+        key = self.behaviour.pop(0)
+        print(key)
+        return key
+
+
+class MockCheckCall:
+    def __init__(self):
+        self.calls = []
+
+    def __call__(self, args, **kwargs):
+        self.calls.append(' '.join(args))
+
+
+class MockCheckOutput:
+    def __init__(self, behaviour):
+        self.behaviour = behaviour
+
+    def __call__(self, args, **kwargs):
+        return self.behaviour.pop(' '.join(args))
 
 
 def test_publish_on_master():
-    class MockConfirm:
-        calls = 0
+    mock_confirm = MockConfirm(behaviour=[])  # nothing to confirm
+    mock_check_output = MockCheckOutput(behaviour={
+        'git branch --no-color': (
+            '  develop\n'
+            '* master'
+        ),  # we are not on master
+        'git status --porcelain': '',  # it's clean
+        'poetry check': 'All set!',  # all ok
+        'git log HEAD..origin/master --oneline': '',  # no changes
+        'poetry build': '',  # build ok
+        'git tag': 'v0.0.1\nv0.0.2',  # version doesn't exist, yet
+    })
 
-        def __call__(self, txt):
-            self.calls += 1
-            return 'y'
-
-    class MockCheckCall:
-        calls = []
-
-        def __call__(self, args, **kwargs):
-            self.calls.append(' '.join(args))
-
-    class MockCheckOutput:
-        behaviour = {
-            'git branch --no-color': (
-                '  develop\n'
-                '* master'
-            ),  # we are not on master
-            'git status --porcelain': '',  # it's clean
-            'poetry check': '',  # all ok
-            'git log HEAD..origin/master --oneline': '',  # no changes
-            'poetry build': '',  # build ok
-            'git tag': 'v0.0.1\nv0.0.2',  # version doesn't exist, yet
-        }
-
-        def __call__(self, args, **kwargs):
-            return self.behaviour.pop(' '.join(args))
-
-    with patch('poetry_publish.utils.interactive.input', new_callable=MockConfirm) as confirm:
-        with patch('subprocess.check_call', new_callable=MockCheckCall) as check_call:
-            with patch('subprocess.check_output', new_callable=MockCheckOutput) as check_output:
-                publish_poetry_publish()
-
-    should_confirm = 0
-
-    call_info, output = verbose_check_output('git', 'status', '--porcelain')
-    if output != '':
-        # confirm needed if git repro contains changed files
-        # e.g.: run tests while developing
-        should_confirm += 1
-
-    if 'dev' in __version__ or 'rc' in __version__:
-        should_confirm += 1
-
-    assert confirm.calls == should_confirm
+    with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
+        with patch('subprocess.check_call', MockCheckCall()) as check_call:
+            with patch('subprocess.check_output', mock_check_output) as check_output:
+                with patch('poetry_publish.__version__', '1.2.3'):
+                    publish_poetry_publish()
 
     assert check_call.calls == [
-        f'poetry version {__version__}',
+        f'poetry version 1.2.3',
         'git fetch --all',
         'git push',
         'poetry publish',
-        f'git tag v{__version__}',
+        f'git tag v1.2.3',
         'git push --tags'
     ]
     assert check_output.behaviour == {}
 
+    assert confirm.call_count == 0
+    assert confirm.calls == []
 
-def test_publish_tag_exists(capsys):
 
-    class MockConfirm:
-        calls = 0
+def test_publish_abort_on_dev_version(capsys):
+    mock_confirm = MockConfirm(behaviour=['n'])  # no confirm
+    mock_check_output = MockCheckOutput(behaviour={})
 
-        def __call__(self, txt):
-            self.calls += 1
-            return 'y'
+    with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
+        with patch('subprocess.check_call', MockCheckCall()) as check_call:
+            with patch('subprocess.check_output', mock_check_output) as check_output:
+                with patch('poetry_publish.__version__', '1.2.3.dev0'):
+                    with pytest.raises(SystemExit) as exit:
+                        publish_poetry_publish()
 
-    class MockCheckCall:
-        calls = []
+    # Check exit from confirm():
+    out, err = capsys.readouterr()
+    assert "Bye." in out
+    assert exit.value.code == -1
 
-        def __call__(self, args, **kwargs):
-            self.calls.append(' '.join(args))
+    assert check_call.calls == []
+    assert check_output.behaviour == {}
 
-    class MockCheckOutput:
-        behaviour = {
-            'git branch --no-color': (
-                '  develop\n'
-                '* master'
-            ),  # we are not on master
-            'git status --porcelain': '',  # it's clean
-            'poetry check': '',  # all ok
-            'git log HEAD..origin/master --oneline': '',  # no changes
-            'poetry build': '',  # build ok
-            'git tag': f'v0.0.1\nv0.0.2\nv{__version__}',  # version already exists
-        }
+    assert confirm.call_count == 1
+    assert confirm.calls == ["WARNING: Version contains 'dev': v1.2.3.dev0"]
 
-        def __call__(self, args, **kwargs):
-            return self.behaviour.pop(' '.join(args))
 
-    with patch('poetry_publish.utils.interactive.input', new_callable=MockConfirm) as confirm:
-        with patch('subprocess.check_call', new_callable=MockCheckCall) as check_call:
-            with patch('subprocess.check_output', new_callable=MockCheckOutput) as check_output:
+def test_publish_confirm_dev_version():
+    mock_confirm = MockConfirm(behaviour=['y'])  # confirm dev version
+    mock_check_output = MockCheckOutput(behaviour={
+        'git branch --no-color': (
+            '  develop\n'
+            '* master'
+        ),  # we are not on master
+        'git status --porcelain': '',  # it's clean
+        'poetry check': 'All set!',  # all ok
+        'git log HEAD..origin/master --oneline': '',  # no changes
+        'poetry build': '',  # build ok
+        'git tag': 'v0.0.1\nv0.0.2',  # version doesn't exist, yet
+    })
 
-                with pytest.raises(SystemExit) as exit:
+    with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
+        with patch('subprocess.check_call', MockCheckCall()) as check_call:
+            with patch('subprocess.check_output', mock_check_output) as check_output:
+                with patch('poetry_publish.__version__', '1.2.3.dev1'):
                     publish_poetry_publish()
 
+    assert check_call.calls == [
+        f'poetry version 1.2.3.dev1',
+        'git fetch --all',
+        'git push',
+        'poetry publish',
+        f'git tag v1.2.3.dev1',
+        'git push --tags'
+    ]
+    assert check_output.behaviour == {}
+
+    assert confirm.call_count == 1
+    assert confirm.calls == ["WARNING: Version contains 'dev': v1.2.3.dev1"]
+
+
+def test_publish_abort_not_on_master(capsys):
+    mock_confirm = MockConfirm(behaviour=['n'])  # no confirm
+    mock_check_output = MockCheckOutput(behaviour={
+        'git branch --no-color': (
+            '* develop\n'
+            '  master'
+        ),  # we are not on master
+    })
+
+    with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
+        with patch('subprocess.check_call', MockCheckCall()) as check_call:
+            with patch('subprocess.check_output', mock_check_output) as check_output:
+                with patch('poetry_publish.__version__', '1.2.3'):
+                    with pytest.raises(SystemExit) as exit:
+                        publish_poetry_publish()
+
+    # Check exit from confirm():
     out, err = capsys.readouterr()
-    assert f"*** ERROR: git tag 'v{__version__}' already exists!" in out
-    assert exit.value.code == 3
+    assert "Bye." in out
+    assert exit.value.code == -1
 
-    should_confirm = 0
+    assert confirm.call_count == 1
+    assert confirm.calls == ['NOTE: It seems you are not on "master":\n* develop\n  master']
 
-    call_info, output = verbose_check_output('git', 'status', '--porcelain')
-    if output != '':
-        # confirm needed if git repro contains changed files
-        # e.g.: run tests while developing
-        should_confirm += 1
+    assert check_call.calls == []
+    assert check_output.behaviour == {}
 
-    if 'dev' in __version__ or 'rc' in __version__:
-        should_confirm += 1
 
-    assert confirm.calls == should_confirm
+def test_publish_confirm_not_on_master(capsys):
+    mock_confirm = MockConfirm(behaviour=['y'])  # confirm not on master
+    mock_check_output = MockCheckOutput(behaviour={
+        'git branch --no-color': (
+            '* develop\n'
+            '  master'
+        ),  # we are not on master
+        'git status --porcelain': '',  # it's clean
+        'poetry check': 'All set!',  # all ok
+        'git log HEAD..origin/master --oneline': '',  # no changes
+        'poetry build': '',  # build ok
+        'git tag': 'v0.0.1\nv0.0.2',  # version doesn't exist, yet
+    })
+
+    with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
+        with patch('subprocess.check_call', MockCheckCall()) as check_call:
+            with patch('subprocess.check_output', mock_check_output) as check_output:
+                with patch('poetry_publish.__version__', '1.2.3'):
+                    publish_poetry_publish()
 
     assert check_call.calls == [
-        f'poetry version {__version__}',
+        f'poetry version 1.2.3',
+        'git fetch --all',
+        'git push',
+        'poetry publish',
+        f'git tag v1.2.3',
+        'git push --tags'
+    ]
+    assert check_output.behaviour == {}
+
+    assert confirm.call_count == 1
+    assert confirm.calls == ['NOTE: It seems you are not on "master":\n* develop\n  master']
+
+
+def test_publish_abort_git_not_clean(capsys):
+    mock_confirm = MockConfirm(behaviour=[])  # nothing to confirm
+    mock_check_output = MockCheckOutput(behaviour={
+        'git branch --no-color': (
+            '  develop\n'
+            '* master'
+        ),  # we are not on master
+        'git status --porcelain': ' M poetry_publish/tests/test_publish.py',  # not clean
+    })
+
+    with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
+        with patch('subprocess.check_call', MockCheckCall()) as check_call:
+            with patch('subprocess.check_output', mock_check_output) as check_output:
+                with patch('poetry_publish.__version__', '1.2.3'):
+                    with pytest.raises(SystemExit) as exit:
+                        publish_poetry_publish()
+
+    # Check exit from confirm():
+    out, err = capsys.readouterr()
+    assert "ERROR: git repro not clean:\n M poetry_publish/tests/test_publish.py" in out
+    assert exit.value.code == 1
+
+    assert check_call.calls == ['poetry version 1.2.3']
+    assert check_output.behaviour == {}
+
+    assert confirm.call_count == 0
+    assert confirm.calls == []
+
+
+def test_publish_abort_poetry_check_failed(capsys):
+    mock_confirm = MockConfirm(behaviour=['n'])  # no confirm
+    mock_check_output = MockCheckOutput(behaviour={
+        'git branch --no-color': (
+            '  develop\n'
+            '* master'
+        ),  # we are not on master
+        'git status --porcelain': '',  # it's clean
+        'poetry check': 'Error?!?',  # fail!
+    })
+
+    with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
+        with patch('subprocess.check_call', MockCheckCall()) as check_call:
+            with patch('subprocess.check_output', mock_check_output) as check_output:
+                with patch('poetry_publish.__version__', '1.2.3'):
+                    with pytest.raises(SystemExit) as exit:
+                        publish_poetry_publish()
+
+    # Check exit from confirm():
+    out, err = capsys.readouterr()
+    assert "Bye." in out
+    assert exit.value.code == -1
+
+    assert check_call.calls == ['poetry version 1.2.3']
+    assert check_output.behaviour == {}
+
+    assert confirm.call_count == 1
+    assert confirm.calls == ['Check failed!']
+
+
+def test_publish_confim_poetry_check_failed(capsys):
+    mock_confirm = MockConfirm(behaviour=['y'])  # confirm with failed poetry check
+    mock_check_output = MockCheckOutput(behaviour={
+        'git branch --no-color': (
+            '  develop\n'
+            '* master'
+        ),  # we are not on master
+        'git status --porcelain': '',  # it's clean
+        'poetry check': 'Error?!?',  # fail!
+        'git log HEAD..origin/master --oneline': '',  # no changes
+        'poetry build': '',  # build ok
+        'git tag': 'v0.0.1\nv0.0.2',  # version doesn't exist, yet
+    })
+
+    with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
+        with patch('subprocess.check_call', MockCheckCall()) as check_call:
+            with patch('subprocess.check_output', mock_check_output) as check_output:
+                with patch('poetry_publish.__version__', '1.2.3'):
+                    publish_poetry_publish()
+
+    assert check_call.calls == [
+        f'poetry version 1.2.3',
+        'git fetch --all',
+        'git push',
+        'poetry publish',
+        f'git tag v1.2.3',
+        'git push --tags'
+    ]
+    assert check_output.behaviour == {}
+
+    assert confirm.call_count == 1
+    assert confirm.calls == ['Check failed!']
+
+
+def test_publish_abort_repro_not_up_to_date(capsys):
+    mock_confirm = MockConfirm(behaviour=[])  # nothing to confirm
+    mock_check_output = MockCheckOutput(behaviour={
+        'git branch --no-color': (
+            '  develop\n'
+            '* master'
+        ),  # we are not on master
+        'git status --porcelain': '',  # it's clean
+        'poetry check': 'All set!',  # all ok
+        'git log HEAD..origin/master --oneline':
+            '5dabb6002e (origin/master, origin/HEAD) One commit',
+    })
+
+    with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
+        with patch('subprocess.check_call', MockCheckCall()) as check_call:
+            with patch('subprocess.check_output', mock_check_output) as check_output:
+                with patch('poetry_publish.__version__', '1.2.3'):
+                    with pytest.raises(SystemExit) as exit:
+                        publish_poetry_publish()
+
+    # Check exit from confirm():
+    out, err = capsys.readouterr()
+    assert (
+        "ERROR: git repro is not up-to-date:\n"
+        "5dabb6002e (origin/master, origin/HEAD) One commit"
+    ) in out
+    assert exit.value.code == 2
+
+    assert check_call.calls == [
+        f'poetry version 1.2.3',
+        'git fetch --all',
+    ]
+    assert check_output.behaviour == {}
+
+    assert confirm.call_count == 0
+    assert confirm.calls == []
+
+
+def test_publish_abort_tag_exists(capsys):
+    mock_confirm = MockConfirm(behaviour=[])  # nothing to confirm
+    mock_check_output = MockCheckOutput(behaviour={
+        'git branch --no-color': (
+            '  develop\n'
+            '* master'
+        ),  # we are not on master
+        'git status --porcelain': '',  # it's clean
+        'poetry check': 'All set!',  # all ok
+        'git log HEAD..origin/master --oneline': '',  # no changes
+        'poetry build': '',  # build ok
+        'git tag': f'v0.0.1\nv0.0.2\nv1.2.3\nv2.0',  # version already exists
+    })
+
+    with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
+        with patch('subprocess.check_call', MockCheckCall()) as check_call:
+            with patch('subprocess.check_output', mock_check_output) as check_output:
+                with patch('poetry_publish.__version__', '1.2.3'):
+                    with pytest.raises(SystemExit) as exit:
+                        publish_poetry_publish()
+
+    out, err = capsys.readouterr()
+    assert "*** ERROR: git tag 'v1.2.3' already exists!" in out
+    assert exit.value.code == 3
+
+    assert check_call.calls == [
+        f'poetry version 1.2.3',
         'git fetch --all',
         'git push',
     ]
     assert check_output.behaviour == {}
+
+    assert confirm.call_count == 0
+    assert confirm.calls == []

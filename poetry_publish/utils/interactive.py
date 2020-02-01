@@ -2,7 +2,6 @@ import sys
 
 
 def confirm(txt):
-    print(f'\n{txt}')
-    if input('\nPublish anyhow? (Y/N)').lower() not in ('y', 'j'):
+    if input(f'\n{txt}\nPublish anyhow? (Y/N)').lower() not in ('y', 'j'):
         print('Bye.')
         sys.exit(-1)
