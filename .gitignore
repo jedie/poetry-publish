@@ -4,6 +4,7 @@
 !.flake8
 !.travis.yml
 
+*.egg-info
 *.py[co]
 *~
 /dist
