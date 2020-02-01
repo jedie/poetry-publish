@@ -21,6 +21,9 @@ classifiers = [
     'Topic :: Utilities',
 ]
 
+# Will be generated from README.creole with: 'poetry run update_rst_readme'
+readme='README.rst'
+
 [tool.poetry.dependencies]
 python = "^3.6"
 python-creole = "^1.4.2"
