@@ -1,6 +1,7 @@
 from unittest.mock import patch
 
 import pytest
+
 from poetry_publish import __version__
 from poetry_publish.self import publish_poetry_publish
 from poetry_publish.utils.subprocess_utils import verbose_check_output

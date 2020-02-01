@@ -15,6 +15,16 @@ After a successfull upload to PyPi:
 * create a git version tag
 * git push tag to remote server
 
+Compatible Python Versions (see [[https://github.com/jedie/poetry-publish/blob/master/tox.ini|tox.ini]] or [[https://github.com/jedie/poetry-publish/blob/master/.travis.yml|.travis.yml]]):
+ * 3.8, 3.7, 3.6
+ * PyPy3
+
+| {{https://github.com/jedie/poetry-publish/workflows/test/badge.svg?branch=master|Build Status on github}} ||
+| {{https://travis-ci.org/jedie/poetry-publish.svg|Build Status on travis-ci.org}} | [[https://travis-ci.org/jedie/poetry-publish/|travis-ci.org/jedie/poetry-publish]] |
+| {{https://coveralls.io/repos/jedie/poetry-publish/badge.svg|Coverage Status on coveralls.io}} | [[https://coveralls.io/r/jedie/poetry-publish|coveralls.io/r/jedie/poetry-publish]] |
+| {{https://landscape.io/github/jedie/poetry-publish/master/landscape.svg|Status on landscape.io}} | [[https://landscape.io/github/jedie/poetry-publish/master|landscape.io/github/jedie/poetry-publish/master]] |
+| {{https://badge.fury.io/py/poetry-publish.svg|PyPi version}} | [[https://pypi.org/project/poetry-publish/|pypi.org/project/poetry-publish/]] |
+
 == usage ==
 
 Create a publish hook in you project, e.g. create {{{your_project/publish.py}}} with:
@@ -49,9 +59,7 @@ To publish do this:
 based on:
 https://github.com/jedie/python-code-snippets/blob/master/CodeSnippets/setup_publish.py
 
-Compatible Python Versions (see [[https://github.com/jedie/poetry-publish/blob/master/tox.ini|tox.ini]] or [[https://github.com/jedie/poetry-publish/blob/master/.travis.yml|.travis.yml]]):
- * 3.8, 3.7, 3.6
- * PyPy3
+
 
 
 == unittests ==

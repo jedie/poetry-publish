@@ -24,6 +24,34 @@ After a successfull upload to PyPi:
 
 * git push tag to remote server
 
+Compatible Python Versions (see `tox.ini <https://github.com/jedie/poetry-publish/blob/master/tox.ini>`_ or `.travis.yml <https://github.com/jedie/poetry-publish/blob/master/.travis.yml>`_):
+
+* 3.8, 3.7, 3.6
+
+* PyPy3
+
++-----------------------------------+
+| |Build Status on github|          |
++-----------------------------------+
+| |Build Status on travis-ci.org|   |
++-----------------------------------+
+| |Coverage Status on coveralls.io| |
++-----------------------------------+
+| |Status on landscape.io|          |
++-----------------------------------+
+| |PyPi version|                    |
++-----------------------------------+
+
+.. |Build Status on github| image:: https://github.com/jedie/poetry-publish/workflows/test/badge.svg?branch=master
+.. |Build Status on travis-ci.org| image:: https://travis-ci.org/jedie/poetry-publish.svg
+.. _travis-ci.org/jedie/poetry-publish: https://travis-ci.org/jedie/poetry-publish/
+.. |Coverage Status on coveralls.io| image:: https://coveralls.io/repos/jedie/poetry-publish/badge.svg
+.. _coveralls.io/r/jedie/poetry-publish: https://coveralls.io/r/jedie/poetry-publish
+.. |Status on landscape.io| image:: https://landscape.io/github/jedie/poetry-publish/master/landscape.svg
+.. _landscape.io/github/jedie/poetry-publish/master: https://landscape.io/github/jedie/poetry-publish/master
+.. |PyPi version| image:: https://badge.fury.io/py/poetry-publish.svg
+.. _pypi.org/project/poetry-publish/: https://pypi.org/project/poetry-publish/
+
 -----
 usage
 -----
@@ -62,12 +90,6 @@ To publish do this:
 
 based on:
 `https://github.com/jedie/python-code-snippets/blob/master/CodeSnippets/setup_publish.py <https://github.com/jedie/python-code-snippets/blob/master/CodeSnippets/setup_publish.py>`_
-
-Compatible Python Versions (see `tox.ini <https://github.com/jedie/poetry-publish/blob/master/tox.ini>`_ or `.travis.yml <https://github.com/jedie/poetry-publish/blob/master/.travis.yml>`_):
-
-* 3.8, 3.7, 3.6
-
-* PyPy3
 
 ---------
 unittests
@@ -158,4 +180,4 @@ donation
 
 ------------
 
-``Note: this file is generated from README.creole 2020-02-01 20:01:37 with "python-creole"``
+``Note: this file is generated from README.creole 2020-02-01 20:06:56 with "python-creole"``
