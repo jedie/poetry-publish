@@ -173,6 +173,7 @@ publish              Release new version to PyPi
 = history =
 
 * *dev* - [[https://github.com/jedie/poetry-publish/compare/v0.2.2...master|compare v0.2.2...master]]
+** make {{{poetry_publish.tests.test_project_setup}}} usable for external packages
 ** TBC
 * v0.2.2 - 2020-02-01 - [[https://github.com/jedie/poetry-publish/compare/v0.2.1...v0.2.2|compare v0.2.1...v0.2.2]]
 ** Fix missing project description on PyPi
