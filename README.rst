@@ -209,9 +209,13 @@ To see all make targets, just call ``make``:
 history
 =======
 
-* *dev* - `compare v0.2.2...master <https://github.com/jedie/poetry-publish/compare/v0.2.2...master>`_ 
+* *dev* - `compare v0.2.3...master <https://github.com/jedie/poetry-publish/compare/v0.2.3...master>`_ 
 
     * TBC
+
+* v0.2.3 - 2020-02-02 - `compare v0.2.2...v0.2.3 <https://github.com/jedie/poetry-publish/compare/v0.2.2...v0.2.3>`_ 
+
+    * make ``poetry_publish.tests.test_project_setup`` usable for external packages
 
 * v0.2.2 - 2020-02-01 - `compare v0.2.1...v0.2.2 <https://github.com/jedie/poetry-publish/compare/v0.2.1...v0.2.2>`_ 
 
@@ -262,4 +266,4 @@ donation
 
 ------------
 
-``Note: this file is generated from README.creole 2020-02-01 23:18:33 with "python-creole"``
+``Note: this file is generated from README.creole 2020-02-02 16:51:57 with "python-creole"``
