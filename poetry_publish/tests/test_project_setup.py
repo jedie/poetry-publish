@@ -10,6 +10,7 @@ from pathlib import Path
 
 import poetry_publish
 
+
 PACKAGE_ROOT = Path(poetry_publish.__file__).parent.parent
 
 

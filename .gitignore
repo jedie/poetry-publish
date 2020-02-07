@@ -3,6 +3,7 @@
 !.coveragerc
 !.editorconfig
 !.flake8
+!.isort.cfg
 !.travis.yml
 
 coverage.xml
