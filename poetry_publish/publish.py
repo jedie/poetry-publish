@@ -136,6 +136,9 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
 
     print('\nUpload to PyPi via poetry:')
     args = ['poetry', 'publish'] + sys.argv[1:]
+    if '-vvv' not in sys.argv:
+        args.append('-vvv')
+
     try:
         verbose_check_call(*args)
     except subprocess.CalledProcessError:
