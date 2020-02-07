@@ -9,10 +9,10 @@
 
 import os
 import shutil
+import subprocess
 import sys
 
 from creole.setup_utils import update_rst_readme
-
 from poetry_publish.utils.interactive import confirm
 from poetry_publish.utils.subprocess_utils import verbose_check_call, verbose_check_output
 
@@ -126,7 +126,11 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
 
     print('\nUpload to PyPi via poetry:')
     args = ['poetry', 'publish'] + sys.argv[1:]
-    verbose_check_call(*args)
+    try:
+        verbose_check_call(*args)
+    except subprocess.CalledProcessError:
+        print('\nPoetry publish error -> fallback and use twine')
+        verbose_check_call(['poetry', 'run', 'twine', 'upload'])
 
     print('\ngit tag version')
     verbose_check_call('git', 'tag', git_tag)
