@@ -53,7 +53,16 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
     print('\nCheck if we are on "master" branch:')
     call_info, output = verbose_check_output('git', 'branch', '--no-color')
     print(f'\t{call_info}')
-    if '* master' in output:
+    branch = None
+    for line in output.splitlines():
+        if line.startswith('* '):
+            branch = line.split(' ', 1)[1]
+            break
+    if branch is None:
+        print(f'ERROR get git branch from: {output!r}')
+        sys.exit(4)
+
+    if branch == 'master':
         print('OK')
     else:
         confirm(f'\nNOTE: It seems you are not on "master":\n{output}')
@@ -89,7 +98,7 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
         print('\n *** ERROR: git repro is not up-to-date:')
         print(output)
         sys.exit(2)
-    verbose_check_call('git', 'push')
+    verbose_check_call('git', 'push', 'origin', branch)
 
     print('\nCleanup old builds:')
 
