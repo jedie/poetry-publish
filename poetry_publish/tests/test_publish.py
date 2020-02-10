@@ -73,8 +73,8 @@ def test_publish_on_master():
     assert check_call.calls == [
         'poetry version 1.2.3',
         'git fetch --all',
-        'git push',
-        'poetry publish',
+        'git push origin master',
+        'poetry publish -vvv',
         f'git tag v1.2.3',
         'git push --tags'
     ]
@@ -128,8 +128,8 @@ def test_publish_confirm_dev_version():
     assert check_call.calls == [
         f'poetry version 1.2.3.dev1',
         'git fetch --all',
-        'git push',
-        'poetry publish',
+        'git push origin master',
+        'poetry publish -vvv',
         f'git tag v1.2.3.dev1',
         'git push --tags'
     ]
@@ -188,8 +188,8 @@ def test_publish_confirm_not_on_master(capsys):
     assert check_call.calls == [
         'poetry version 1.2.3',
         'git fetch --all',
-        'git push',
-        'poetry publish',
+        'git push origin develop',
+        'poetry publish -vvv',
         f'git tag v1.2.3',
         'git push --tags'
     ]
@@ -278,8 +278,8 @@ def test_publish_confim_poetry_check_failed(capsys):
     assert check_call.calls == [
         'poetry version 1.2.3',
         'git fetch --all',
-        'git push',
-        'poetry publish',
+        'git push origin master',
+        'poetry publish -vvv',
         f'git tag v1.2.3',
         'git push --tags'
     ]
@@ -353,7 +353,7 @@ def test_publish_abort_tag_exists(capsys):
     assert check_call.calls == [
         'poetry version 1.2.3',
         'git fetch --all',
-        'git push',
+        'git push origin master',
     ]
     assert check_output.behaviour == {}
 
@@ -385,8 +385,8 @@ def test_publish_poetry_publish():
         'make fix-code-style',
         'poetry version 1.2.3',
         'git fetch --all',
-        'git push',
-        'poetry publish',
+        'git push origin master',
+        'poetry publish -vvv',
         f'git tag v1.2.3',
         'git push --tags'
     ]

@@ -10,6 +10,7 @@ from pathlib import Path
 
 import poetry_publish
 
+
 PACKAGE_ROOT = Path(poetry_publish.__file__).parent.parent
 
 
@@ -28,7 +29,7 @@ def test_version(package_root=None, version=None):
     if version is None:
         version = poetry_publish.__version__
 
-    if 'dev' not in version:
+    if 'dev' not in version and 'rc' not in version:
         version_string = f'v{version}'
 
         assert_file_contains_string(

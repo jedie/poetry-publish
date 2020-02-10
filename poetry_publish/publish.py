@@ -9,6 +9,7 @@
 
 import os
 import shutil
+import subprocess
 import sys
 
 from creole.setup_utils import update_rst_readme
@@ -52,7 +53,16 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
     print('\nCheck if we are on "master" branch:')
     call_info, output = verbose_check_output('git', 'branch', '--no-color')
     print(f'\t{call_info}')
-    if '* master' in output:
+    branch = None
+    for line in output.splitlines():
+        if line.startswith('* '):
+            branch = line.split(' ', 1)[1]
+            break
+    if branch is None:
+        print(f'ERROR get git branch from: {output!r}')
+        sys.exit(4)
+
+    if branch == 'master':
         print('OK')
     else:
         confirm(f'\nNOTE: It seems you are not on "master":\n{output}')
@@ -88,7 +98,7 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
         print('\n *** ERROR: git repro is not up-to-date:')
         print(output)
         sys.exit(2)
-    verbose_check_call('git', 'push')
+    verbose_check_call('git', 'push', 'origin', branch)
 
     print('\nCleanup old builds:')
 
@@ -126,7 +136,14 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
 
     print('\nUpload to PyPi via poetry:')
     args = ['poetry', 'publish'] + sys.argv[1:]
-    verbose_check_call(*args)
+    if '-vvv' not in sys.argv:
+        args.append('-vvv')
+
+    try:
+        verbose_check_call(*args)
+    except subprocess.CalledProcessError:
+        print('\nPoetry publish error -> fallback and use twine')
+        verbose_check_call('poetry', 'run', 'twine', 'upload', 'dist/*.*')
 
     print('\ngit tag version')
     verbose_check_call('git', 'tag', git_tag)

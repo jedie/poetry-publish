@@ -209,9 +209,19 @@ To see all make targets, just call ``make``:
 history
 =======
 
-* *dev* - `compare v0.2.3...master <https://github.com/jedie/poetry-publish/compare/v0.2.3...master>`_ 
+* *dev* - `compare v0.3.0...master <https://github.com/jedie/poetry-publish/compare/v0.3.0...master>`_ 
 
     * TBC
+
+* v0.3.0 - 2020-02-10 - `compare v0.2.3...v0.3.0 <https://github.com/jedie/poetry-publish/compare/v0.2.3...v0.3.0>`_ 
+
+    * Poetry publish error -> fallback and use twine
+
+    * call ``poetry publish`` with ``-vvv``
+
+    * call ``git push`` with ``origin <current-branch>``
+
+    * add isort config
 
 * v0.2.3 - 2020-02-02 - `compare v0.2.2...v0.2.3 <https://github.com/jedie/poetry-publish/compare/v0.2.2...v0.2.3>`_ 
 
@@ -266,4 +276,4 @@ donation
 
 ------------
 
-``Note: this file is generated from README.creole 2020-02-02 16:51:57 with "python-creole"``
+``Note: this file is generated from README.creole 2020-02-10 20:37:59 with "python-creole"``
