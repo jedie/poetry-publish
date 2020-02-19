@@ -172,8 +172,11 @@ publish              Release new version to PyPi
 
 = history =
 
-* *dev* - [[https://github.com/jedie/poetry-publish/compare/v0.3.0...master|compare v0.3.0...master]]
+* *dev* - [[https://github.com/jedie/poetry-publish/compare/v0.3.1...master|compare v0.3.1...master]]
 ** TBC
+* v0.3.1 - 2020-02-19 - [[https://github.com/jedie/poetry-publish/compare/v0.3.0...v0.3.1|compare v0.3.0...v0.3.1]]
+** less restricted dependency specification
+** Add: {{poetry_publish.tests.test_project_setup.test_assert_rst_readme}}}
 * v0.3.0 - 2020-02-10 - [[https://github.com/jedie/poetry-publish/compare/v0.2.3...v0.3.0|compare v0.2.3...v0.3.0]]
 ** Poetry publish error -> fallback and use twine
 ** call {{{poetry publish}}} with {{{-vvv}}}

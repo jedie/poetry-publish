@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "poetry-publish"
-version = "0.3.0"
+version = "0.3.1"
 description = "Helper to build and upload a project that used poetry to PyPi, with prechecks"
 authors = ["JensDiemer <git@jensdiemer.de>"]
 keywords=['poetry']

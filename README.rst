@@ -209,9 +209,15 @@ To see all make targets, just call ``make``:
 history
 =======
 
-* *dev* - `compare v0.3.0...master <https://github.com/jedie/poetry-publish/compare/v0.3.0...master>`_ 
+* *dev* - `compare v0.3.1...master <https://github.com/jedie/poetry-publish/compare/v0.3.1...master>`_ 
 
     * TBC
+
+* v0.3.1 - 2020-02-19 - `compare v0.3.0...v0.3.1 <https://github.com/jedie/poetry-publish/compare/v0.3.0...v0.3.1>`_ 
+
+    * less restricted dependency specification
+
+    * Add: |poetry_publish.tests.test_project_setup.test_assert_rst_readme|}
 
 * v0.3.0 - 2020-02-10 - `compare v0.2.3...v0.3.0 <https://github.com/jedie/poetry-publish/compare/v0.2.3...v0.3.0>`_ 
 
@@ -249,6 +255,8 @@ history
 
     * first released version cut out from `python-creole <https://github.com/jedie/python-creole>`_
 
+.. |poetry_publish.tests.test_project_setup.test_assert_rst_readme| image:: poetry_publish.tests.test_project_setup.test_assert_rst_readme
+
 first source code was written 27.11.2008: `Forum thread (de) <http://www.python-forum.de/viewtopic.php?f=3&t=16742>`_
 
 -------------
@@ -276,4 +284,4 @@ donation
 
 ------------
 
-``Note: this file is generated from README.creole 2020-02-10 20:37:59 with "python-creole"``
+``Note: this file is generated from README.creole 2020-02-19 10:02:53 with "python-creole"``
