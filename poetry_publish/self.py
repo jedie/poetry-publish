@@ -1,9 +1,8 @@
 from pathlib import Path
 
-from creole.setup_utils import update_rst_readme
-
 import poetry_publish
 import poetry_publish.publish
+from poetry_publish.utils import update_rst_readme
 from poetry_publish.utils.subprocess_utils import verbose_check_call
 
 

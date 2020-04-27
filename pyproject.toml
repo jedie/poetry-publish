@@ -26,7 +26,7 @@ readme='README.rst'
 
 [tool.poetry.dependencies]
 python = "^3.6"
-python-creole = "*"
+python-creole = {version = "*", optional = true}
 twine = "*"
 
 [tool.poetry.dev-dependencies]
@@ -37,6 +37,9 @@ isort = "*"
 flake8 = "*"
 flynt = "*"
 autopep8 = "*"
+
+[tool.poetry.extras]
+creole = ["python-creole"]
 
 [tool.poetry.scripts]
 update_rst_readme = "poetry_publish.self:update_poetry_publish_readme"

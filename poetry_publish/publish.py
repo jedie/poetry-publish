@@ -12,8 +12,7 @@ import shutil
 import subprocess
 import sys
 
-from creole.setup_utils import update_rst_readme
-
+from poetry_publish.utils import update_rst_readme
 from poetry_publish.utils.interactive import confirm
 from poetry_publish.utils.subprocess_utils import verbose_check_call, verbose_check_output
 
