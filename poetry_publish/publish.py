@@ -143,7 +143,8 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
         verbose_check_call(*args)
     except subprocess.CalledProcessError:
         print('\nPoetry publish error -> fallback and use twine')
-        verbose_check_call('poetry', 'run', 'twine', 'upload', 'dist/*.*')
+        args = ['poetry', 'run', 'twine', 'upload', 'dist/*.*'] + sys.argv[1:]
+        verbose_check_call(*args)
 
     print('\ngit tag version')
     verbose_check_call('git', 'tag', git_tag)
