@@ -8,8 +8,6 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from creole.setup_utils import assert_rst_readme
-
 import poetry_publish
 
 
@@ -48,17 +46,6 @@ def test_version(package_root=None, version=None):
         file_path=Path(package_root, 'pyproject.toml'),
         string=f'version = "{version}"'
     )
-
-
-def test_assert_rst_readme(package_root=None, version=None, filename='README.creole'):
-    if package_root is None:
-        package_root = PACKAGE_ROOT
-
-    if version is None:
-        version = poetry_publish.__version__
-
-    if 'dev' not in version and 'rc' not in version:
-        assert_rst_readme(package_root=package_root, filename=filename)
 
 
 def test_poetry_check(package_root=None):
