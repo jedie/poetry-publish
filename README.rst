@@ -217,6 +217,10 @@ history
 
 * v0.3.2 - 2020-10-16 - `compare v0.3.1...v0.3.2 <https://github.com/jedie/poetry-publish/compare/v0.3.1...v0.3.2>`_ 
 
+    * Create git annotated tags instead of a lightweight tag. `Contributed by sebhmg in #9 <https://github.com/jedie/poetry-publish/issues/9>`_
+
+    * Make ``python-creole`` to an optional dependency. Based on a contribution by sebhmg
+
     * Allow ``main`` beside ``master`` as stable branch.
 
     * Add ``make update``
@@ -298,4 +302,4 @@ donation
 
 ------------
 
-``Note: this file is generated from README.creole 2020-10-16 16:52:08 with "python-creole"``
+``Note: this file is generated from README.creole 2020-10-16 17:34:56 with "python-creole"``

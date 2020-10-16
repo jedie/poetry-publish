@@ -177,6 +177,8 @@ publish              Release new version to PyPi
 * *dev* - [[https://github.com/jedie/poetry-publish/compare/v0.3.2...master|compare v0.3.2...master]]
 ** TBC
 * v0.3.2 - 2020-10-16 - [[https://github.com/jedie/poetry-publish/compare/v0.3.1...v0.3.2|compare v0.3.1...v0.3.2]]
+** Create git annotated tags instead of a lightweight tag. [[https://github.com/jedie/poetry-publish/issues/9|Contributed by sebhmg in #9]]
+** Make {{{python-creole}}} to an optional dependency. Based on a contribution by sebhmg
 ** Allow {{{main}}} beside {{{master}}} as stable branch.
 ** Add {{{make update}}}
 ** Update {{{pytest.ini}}}
