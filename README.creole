@@ -156,7 +156,8 @@ To see all make targets, just call {{{make}}}:
 ~/poetry-publish$ make
 help                 List all commands
 install-poetry       install or update poetry
-install              install poetry-publish via poetry
+install              install python-poetry_publish via poetry
+update               Update the dependencies as according to the pyproject.toml file
 lint                 Run code formatters and linter
 fix-code-style       Fix code formatting
 tox-listenvs         List all tox test environments
