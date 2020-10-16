@@ -62,10 +62,10 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
         print(f'ERROR get git branch from: {output!r}')
         sys.exit(4)
 
-    if branch == 'master':
+    if branch in ('main', 'master'):
         print('OK')
     else:
-        confirm(f'\nNOTE: It seems you are not on "master":\n{output}')
+        confirm(f'\nNOTE: It seems you are not on "main" or "master":\n{output}')
 
     print(f'\nSet version in "pyproject.toml" to: v{version}')
     verbose_check_call('poetry', 'version', version)
