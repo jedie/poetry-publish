@@ -75,7 +75,7 @@ def test_publish_on_master():
         'git fetch --all',
         'git push origin master',
         'poetry publish -vvv',
-        f'git tag v1.2.3',
+        'git tag v1.2.3',
         'git push --tags'
     ]
     assert check_output.behaviour == {}
@@ -126,11 +126,11 @@ def test_publish_confirm_dev_version():
                 fake_poetry_publish(version='1.2.3.dev1', creole_readme=True)
 
     assert check_call.calls == [
-        f'poetry version 1.2.3.dev1',
+        'poetry version 1.2.3.dev1',
         'git fetch --all',
         'git push origin master',
         'poetry publish -vvv',
-        f'git tag v1.2.3.dev1',
+        'git tag v1.2.3.dev1',
         'git push --tags'
     ]
     assert check_output.behaviour == {}
@@ -190,7 +190,7 @@ def test_publish_confirm_not_on_master(capsys):
         'git fetch --all',
         'git push origin develop',
         'poetry publish -vvv',
-        f'git tag v1.2.3',
+        'git tag v1.2.3',
         'git push --tags'
     ]
     assert check_output.behaviour == {}
@@ -280,7 +280,7 @@ def test_publish_confim_poetry_check_failed(capsys):
         'git fetch --all',
         'git push origin master',
         'poetry publish -vvv',
-        f'git tag v1.2.3',
+        'git tag v1.2.3',
         'git push --tags'
     ]
     assert check_output.behaviour == {}
@@ -337,7 +337,7 @@ def test_publish_abort_tag_exists(capsys):
         'poetry check': 'All set!',  # all ok
         'git log HEAD..origin/master --oneline': '',  # no changes
         'poetry build': '',  # build ok
-        'git tag': f'v0.0.1\nv0.0.2\nv1.2.3\nv2.0',  # version already exists
+        'git tag': 'v0.0.1\nv0.0.2\nv1.2.3\nv2.0',  # version already exists
     })
 
     with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
@@ -387,7 +387,7 @@ def test_publish_poetry_publish():
         'git fetch --all',
         'git push origin master',
         'poetry publish -vvv',
-        f'git tag v1.2.3',
+        'git tag v1.2.3',
         'git push --tags'
     ]
     assert check_output.behaviour == {}
