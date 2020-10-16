@@ -75,7 +75,7 @@ def test_publish_on_master():
         'git fetch --all',
         'git push origin master',
         'poetry publish -vvv',
-        'git tag v1.2.3',
+        'git tag -a v1.2.3 -m publishing version 1.2.3',
         'git push --tags'
     ]
     assert check_output.behaviour == {}
@@ -130,7 +130,7 @@ def test_publish_confirm_dev_version():
         'git fetch --all',
         'git push origin master',
         'poetry publish -vvv',
-        'git tag v1.2.3.dev1',
+        'git tag -a v1.2.3.dev1 -m publishing version 1.2.3.dev1',
         'git push --tags'
     ]
     assert check_output.behaviour == {}
@@ -192,7 +192,7 @@ def test_publish_confirm_not_on_master(capsys):
         'git fetch --all',
         'git push origin develop',
         'poetry publish -vvv',
-        'git tag v1.2.3',
+        'git tag -a v1.2.3 -m publishing version 1.2.3',
         'git push --tags'
     ]
     assert check_output.behaviour == {}
@@ -284,7 +284,7 @@ def test_publish_confim_poetry_check_failed(capsys):
         'git fetch --all',
         'git push origin master',
         'poetry publish -vvv',
-        'git tag v1.2.3',
+        'git tag -a v1.2.3 -m publishing version 1.2.3',
         'git push --tags'
     ]
     assert check_output.behaviour == {}
@@ -391,7 +391,7 @@ def test_publish_poetry_publish():
         'git fetch --all',
         'git push origin master',
         'poetry publish -vvv',
-        'git tag v1.2.3',
+        'git tag -a v1.2.3 -m publishing version 1.2.3',
         'git push --tags'
     ]
     assert check_output.behaviour == {}
