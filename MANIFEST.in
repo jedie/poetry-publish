@@ -1,2 +1,2 @@
-include LICENSE MANIFEST.in README.creole
+include AUTHORS LICENSE MANIFEST.in README.creole
 recursive-exclude * *.py[co]
