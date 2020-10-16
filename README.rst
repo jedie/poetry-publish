@@ -201,6 +201,7 @@ To see all make targets, just call ``make``:
     tox-py36             Run pytest via tox with *python v3.6*
     tox-py37             Run pytest via tox with *python v3.7*
     tox-py38             Run pytest via tox with *python v3.8*
+    tox-py39             Run pytest via tox with *python v3.9*
     pytest               Run pytest
     update-rst-readme    update README.rst from README.creole
     publish              Release new version to PyPi
