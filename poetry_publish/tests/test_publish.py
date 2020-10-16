@@ -160,7 +160,9 @@ def test_publish_abort_not_on_master(capsys):
     assert exit.value.code == -1
 
     assert confirm.call_count == 1
-    assert confirm.calls == ['NOTE: It seems you are not on "master":\n* develop\n  master']
+    assert confirm.calls == [
+        'NOTE: It seems you are not on "main" or "master":\n* develop\n  master'
+    ]
 
     assert check_call.calls == []
     assert check_output.behaviour == {}
@@ -196,7 +198,9 @@ def test_publish_confirm_not_on_master(capsys):
     assert check_output.behaviour == {}
 
     assert confirm.call_count == 1
-    assert confirm.calls == ['NOTE: It seems you are not on "master":\n* develop\n  master']
+    assert confirm.calls == [
+        'NOTE: It seems you are not on "main" or "master":\n* develop\n  master'
+    ]
 
 
 def test_publish_abort_git_not_clean(capsys):
