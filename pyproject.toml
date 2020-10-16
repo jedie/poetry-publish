@@ -26,7 +26,7 @@ classifiers = [
 readme='README.rst'
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = ">=3.6,<4.0.0"
 python-creole = "*"
 twine = "*"
 
