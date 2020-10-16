@@ -28,6 +28,9 @@ install-poetry: ## install or update poetry
 install: check-poetry ## install python-poetry_publish via poetry
 	poetry install
 
+update: check-poetry ## Update the dependencies as according to the pyproject.toml file
+	poetry update
+
 lint: ## Run code formatters and linter
 	poetry run flynt --fail-on-change --line_length=${MAX_LINE_LENGTH} poetry_publish
 	poetry run isort --check-only --recursive poetry_publish
@@ -52,6 +55,9 @@ tox-py37: check-poetry ## Run pytest via tox with *python v3.7*
 
 tox-py38: check-poetry ## Run pytest via tox with *python v3.8*
 	poetry run tox -e py38
+
+tox-py39: check-poetry ## Run pytest via tox with *python v3.9*
+	poetry run tox -e py39
 
 pytest: check-poetry ## Run pytest
 	poetry run pytest
