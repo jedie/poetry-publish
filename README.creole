@@ -174,8 +174,14 @@ publish              Release new version to PyPi
 
 = history =
 
-* *dev* - [[https://github.com/jedie/poetry-publish/compare/v0.3.1...master|compare v0.3.1...master]]
+* *dev* - [[https://github.com/jedie/poetry-publish/compare/v0.3.2...master|compare v0.3.2...master]]
 ** TBC
+* v0.3.2 - 2020-10-16 - [[https://github.com/jedie/poetry-publish/compare/v0.3.1...v0.3.2|compare v0.3.1...v0.3.2]]
+** Allow {{{main}}} beside {{{master}}} as stable branch.
+** Add {{{make update}}}
+** Update {{{pytest.ini}}}
+** Change supported Python version in {{{pyproject.toml}}}
+** Run tests with Python 3.9, too
 * v0.3.1 - 2020-02-19 - [[https://github.com/jedie/poetry-publish/compare/v0.3.0...v0.3.1|compare v0.3.0...v0.3.1]]
 ** less restricted dependency specification
 ** Add: {{poetry_publish.tests.test_project_setup.test_assert_rst_readme}}}

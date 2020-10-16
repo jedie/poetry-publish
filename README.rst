@@ -211,9 +211,21 @@ To see all make targets, just call ``make``:
 history
 =======
 
-* *dev* - `compare v0.3.1...master <https://github.com/jedie/poetry-publish/compare/v0.3.1...master>`_ 
+* *dev* - `compare v0.3.2...master <https://github.com/jedie/poetry-publish/compare/v0.3.2...master>`_ 
 
     * TBC
+
+* v0.3.2 - 2020-10-16 - `compare v0.3.1...v0.3.2 <https://github.com/jedie/poetry-publish/compare/v0.3.1...v0.3.2>`_ 
+
+    * Allow ``main`` beside ``master`` as stable branch.
+
+    * Add ``make update``
+
+    * Update ``pytest.ini``
+
+    * Change supported Python version in ``pyproject.toml``
+
+    * Run tests with Python 3.9, too
 
 * v0.3.1 - 2020-02-19 - `compare v0.3.0...v0.3.1 <https://github.com/jedie/poetry-publish/compare/v0.3.0...v0.3.1>`_ 
 
@@ -286,4 +298,4 @@ donation
 
 ------------
 
-``Note: this file is generated from README.creole 2020-02-19 10:02:53 with "python-creole"``
+``Note: this file is generated from README.creole 2020-10-16 16:26:53 with "python-creole"``
