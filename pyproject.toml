@@ -39,6 +39,7 @@ flake8 = "*"
 flynt = "*"
 autopep8 = "*"
 python-creole = "*"
+pyupgrade = "*"
 
 [tool.poetry.scripts]
 update_rst_readme = "poetry_publish.self:update_poetry_publish_readme"
