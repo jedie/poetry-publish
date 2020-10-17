@@ -6,26 +6,20 @@
 
 from pathlib import Path
 
-import pytest
+from creole.setup_utils import update_rst_readme
 
 import poetry_publish
-
-
-try:
-    from creole.setup_utils import assert_rst_readme
-except ModuleNotFoundError:
-    pytest.skip("skipping: creole is not installed", allow_module_level=True)
 
 
 PACKAGE_ROOT = Path(poetry_publish.__file__).parent.parent
 
 
-def test_assert_rst_readme(package_root=None, version=None, filename='README.creole'):
-    if package_root is None:
-        package_root = PACKAGE_ROOT
-
-    if version is None:
-        version = poetry_publish.__version__
-
-    if 'dev' not in version and 'rc' not in version:
-        assert_rst_readme(package_root=package_root, filename=filename)
+def test_update_rst_readme(capsys):
+    rest_readme_path = update_rst_readme(
+        package_root=PACKAGE_ROOT, filename='README.creole'
+    )
+    captured = capsys.readouterr()
+    assert captured.out == 'Generate README.rst from README.creole...nothing changed, ok.\n'
+    assert captured.err == ''
+    assert isinstance(rest_readme_path, Path)
+    assert str(rest_readme_path).endswith('/README.rst')

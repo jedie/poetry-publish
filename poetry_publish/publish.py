@@ -44,10 +44,14 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
     if creole_readme:
         update_rst_readme(package_root=package_root, filename='README.creole')
 
+    # ------------------------------------------------------------------------
+
     for key in ('dev', 'rc'):
         if key in version:
             confirm(f'WARNING: Version contains {key!r}: v{version}\n')
             break
+
+    # ------------------------------------------------------------------------
 
     print('\nCheck if we are on "master" branch:')
     call_info, output = verbose_check_output('git', 'branch', '--no-color')
@@ -66,8 +70,12 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
     else:
         confirm(f'\nNOTE: It seems you are not on "main" or "master":\n{output}')
 
+    # ------------------------------------------------------------------------
+
     print(f'\nSet version in "pyproject.toml" to: v{version}')
     verbose_check_call('poetry', 'version', version)
+
+    # ------------------------------------------------------------------------
 
     print('\ncheck if if git repro is clean:')
     call_info, output = verbose_check_output('git', 'status', '--porcelain')
@@ -79,13 +87,17 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
         print(output)
         sys.exit(1)
 
+    # ------------------------------------------------------------------------
+
     print('\nRun "poetry check":')
     call_info, output = verbose_check_output('poetry', 'check')
     if 'All set!' not in output:
         print(output)
-        confirm('Check failed!')
+        confirm('Poetry check failed!')
     else:
         print('OK')
+
+    # ------------------------------------------------------------------------
 
     print('\ncheck if pull is needed')
     verbose_check_call('git', 'fetch', '--all')
@@ -99,6 +111,8 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
         sys.exit(2)
     verbose_check_call('git', 'push', 'origin', branch)
 
+    # ------------------------------------------------------------------------
+
     print('\nCleanup old builds:')
 
     def rmtree(path):
@@ -108,6 +122,8 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
             shutil.rmtree(path)
     rmtree('./dist')
     rmtree('./build')
+
+    # ------------------------------------------------------------------------
 
     print('\nbuild but do not upload...')
 
@@ -122,6 +138,23 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
 
     print(f'Build log file is here: {log_filename!r}')
 
+    # ------------------------------------------------------------------------
+
+    print('\nRun "twine check":')
+    call_info, output = verbose_check_output('twine', 'check', 'dist/*.*')
+    ok = None
+    for line in output.splitlines():
+        if line.endswith('PASSED') and ok is None:
+            ok = True
+        else:
+            ok = False
+    if not ok:
+        confirm('Twine check failed!')
+    else:
+        print('OK')
+
+    # ------------------------------------------------------------------------
+
     git_tag = f'v{version}'
 
     print('\ncheck git tag')
@@ -132,6 +165,8 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
         sys.exit(3)
     else:
         print('OK')
+
+    # ------------------------------------------------------------------------
 
     print('\nUpload to PyPi via poetry:')
     args = ['poetry', 'publish'] + sys.argv[1:]
@@ -144,8 +179,12 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
         print('\nPoetry publish error -> fallback and use twine')
         verbose_check_call('poetry', 'run', 'twine', 'upload', 'dist/*.*')
 
+    # ------------------------------------------------------------------------
+
     print('\ngit tag version')
     verbose_check_call('git', 'tag', '-a', git_tag, '-m', f"publishing version {version}")
+
+    # ------------------------------------------------------------------------
 
     print('\ngit push tag to server')
     verbose_check_call('git', 'push', '--tags')

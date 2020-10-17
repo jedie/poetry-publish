@@ -16,6 +16,8 @@ Helper to build and upload a project that used poetry to PyPi, with prechecks:
 
 * Abort if ``poetry check`` fails
 
+* Abort if ``twine check`` fails
+
 * Abort if git version tag already exists
 
 After a successfull upload to PyPi:
@@ -26,7 +28,7 @@ After a successfull upload to PyPi:
 
 Compatible Python Versions (see `tox.ini <https://github.com/jedie/poetry-publish/blob/master/tox.ini>`_ or `.travis.yml <https://github.com/jedie/poetry-publish/blob/master/.travis.yml>`_):
 
-* 3.8, 3.7, 3.6
+* 3.9, 3.8, 3.7, 3.6
 
 * PyPy3
 
@@ -213,6 +215,8 @@ history
 
 * *dev* - `compare v0.3.2...master <https://github.com/jedie/poetry-publish/compare/v0.3.2...master>`_ 
 
+    * Some meta updates to project setup
+
     * TBC
 
 * v0.3.2 - 2020-10-16 - `compare v0.3.1...v0.3.2 <https://github.com/jedie/poetry-publish/compare/v0.3.1...v0.3.2>`_ 
@@ -302,4 +306,4 @@ donation
 
 ------------
 
-``Note: this file is generated from README.creole 2020-10-16 17:34:56 with "python-creole"``
+``Note: this file is generated from README.creole 2020-10-17 23:19:08 with "python-creole"``
