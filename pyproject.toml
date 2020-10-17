@@ -20,6 +20,7 @@ classifiers = [
     'Topic :: Software Development :: Libraries :: Python Modules',
     'Topic :: Utilities',
 ]
+include = ['AUTHORS', 'LICENSE']
 
 # Will be generated from README.creole with: 'poetry run update_rst_readme'
 readme='README.rst'
