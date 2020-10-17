@@ -141,14 +141,18 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
     # ------------------------------------------------------------------------
 
     print('\nRun "twine check":')
-    call_info, output = verbose_check_output('twine', 'check', 'dist/*.*')
-    ok = None
+    call_info, output = verbose_check_output('poetry', 'run', 'twine', 'check', 'dist/*.*')
+    print(f'\t{call_info}')
+    checks = []
     for line in output.splitlines():
-        if line.endswith('PASSED') and ok is None:
-            ok = True
+        if line.endswith('PASSED'):
+            print(f'\t{line}')
+            checks.append(True)
         else:
-            ok = False
-    if not ok:
+            print(f'ERROR: {line}')
+            checks.append(False)
+
+    if True not in checks or False in checks:
         confirm('Twine check failed!')
     else:
         print('OK')
