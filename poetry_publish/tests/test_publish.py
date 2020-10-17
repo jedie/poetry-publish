@@ -62,6 +62,7 @@ def test_publish_on_master():
         'poetry check': 'All set!',  # all ok
         'git log HEAD..origin/master --oneline': '',  # no changes
         'poetry build': '',  # build ok
+        'twine check dist/*.*': 'Checking dist/foobar.whl: PASSED',  # ok
         'git tag': 'v0.0.1\nv0.0.2',  # version doesn't exist, yet
     })
 
@@ -117,6 +118,7 @@ def test_publish_confirm_dev_version():
         'poetry check': 'All set!',  # all ok
         'git log HEAD..origin/master --oneline': '',  # no changes
         'poetry build': '',  # build ok
+        'twine check dist/*.*': 'Checking dist/foobar.whl: PASSED',  # ok
         'git tag': 'v0.0.1\nv0.0.2',  # version doesn't exist, yet
     })
 
@@ -179,6 +181,7 @@ def test_publish_confirm_not_on_master(capsys):
         'poetry check': 'All set!',  # all ok
         'git log HEAD..origin/master --oneline': '',  # no changes
         'poetry build': '',  # build ok
+        'twine check dist/*.*': 'Checking dist/foobar.whl: PASSED',  # ok
         'git tag': 'v0.0.1\nv0.0.2',  # version doesn't exist, yet
     })
 
@@ -271,6 +274,7 @@ def test_publish_confim_poetry_check_failed(capsys):
         'poetry check': 'Error?!?',  # fail!
         'git log HEAD..origin/master --oneline': '',  # no changes
         'poetry build': '',  # build ok
+        'twine check dist/*.*': 'Checking dist/foobar.whl: PASSED',  # ok
         'git tag': 'v0.0.1\nv0.0.2',  # version doesn't exist, yet
     })
 
@@ -330,6 +334,44 @@ def test_publish_abort_repro_not_up_to_date(capsys):
     assert confirm.calls == []
 
 
+def test_publish_abort_twine_error(capsys):
+    mock_confirm = MockConfirm(behaviour=['n'])  # Don't confirm
+    mock_check_output = MockCheckOutput(behaviour={
+        'git branch --no-color': (
+            '  develop\n'
+            '* master'
+        ),  # we are not on master
+        'git status --porcelain': '',  # it's clean
+        'poetry check': 'All set!',  # all ok
+        'git log HEAD..origin/master --oneline': '',  # no changes
+        'poetry build': '',  # build ok
+        'twine check dist/*.*': 'Checking dist/foobar.whl: FAILED\nFoo Bar Error',  # fail!
+    })
+
+    with patch('poetry_publish.utils.interactive.input', mock_confirm) as confirm:
+        with patch('subprocess.check_call', MockCheckCall()) as check_call:
+            with patch('subprocess.check_output', mock_check_output) as check_output:
+                with pytest.raises(SystemExit) as exit:
+                    fake_poetry_publish(version='1.2.3', creole_readme=True)
+
+    # Check exit from confirm():
+    out, err = capsys.readouterr()
+    assert (
+        "Twine check failed!\nPublish anyhow? (Y/N) n\nBye.\n"
+    ) in out
+    assert exit.value.code != 0
+
+    assert check_call.calls == [
+        'poetry version 1.2.3',
+        'git fetch --all',
+        'git push origin master',
+    ]
+    assert check_output.behaviour == {}
+
+    assert confirm.call_count == 1
+    assert confirm.calls == ['Twine check failed!']
+
+
 def test_publish_abort_tag_exists(capsys):
     mock_confirm = MockConfirm(behaviour=[])  # nothing to confirm
     mock_check_output = MockCheckOutput(behaviour={
@@ -341,6 +383,7 @@ def test_publish_abort_tag_exists(capsys):
         'poetry check': 'All set!',  # all ok
         'git log HEAD..origin/master --oneline': '',  # no changes
         'poetry build': '',  # build ok
+        'twine check dist/*.*': 'Checking dist/foobar.whl: PASSED',  # ok
         'git tag': 'v0.0.1\nv0.0.2\nv1.2.3\nv2.0',  # version already exists
     })
 
@@ -376,6 +419,7 @@ def test_publish_poetry_publish():
         'poetry check': 'All set!',  # all ok
         'git log HEAD..origin/master --oneline': '',  # no changes
         'poetry build': '',  # build ok
+        'twine check dist/*.*': 'Checking dist/foobar.whl: PASSED',  # ok
         'git tag': 'v0.0.1\nv0.0.2',  # version doesn't exist, yet
     })
 

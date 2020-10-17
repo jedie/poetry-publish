@@ -140,6 +140,21 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
 
     # ------------------------------------------------------------------------
 
+    print('\nRun "twine check":')
+    call_info, output = verbose_check_output('twine', 'check', 'dist/*.*')
+    ok = None
+    for line in output.splitlines():
+        if line.endswith('PASSED') and ok is None:
+            ok = True
+        else:
+            ok = False
+    if not ok:
+        confirm('Twine check failed!')
+    else:
+        print('OK')
+
+    # ------------------------------------------------------------------------
+
     git_tag = f'v{version}'
 
     print('\ncheck git tag')

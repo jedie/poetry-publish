@@ -8,6 +8,7 @@ Helper to build and upload a project that used poetry to PyPi, with prechecks:
 * Abort publish if git repository contains changes
 * Abort if git repository is not up-to-date
 * Abort if {{{poetry check}}} fails
+* Abort if {{{twine check}}} fails
 * Abort if git version tag already exists
 
 After a successfull upload to PyPi:
@@ -16,7 +17,7 @@ After a successfull upload to PyPi:
 * git push tag to remote server
 
 Compatible Python Versions (see [[https://github.com/jedie/poetry-publish/blob/master/tox.ini|tox.ini]] or [[https://github.com/jedie/poetry-publish/blob/master/.travis.yml|.travis.yml]]):
- * 3.8, 3.7, 3.6
+ * 3.9, 3.8, 3.7, 3.6
  * PyPy3
 
 | {{https://github.com/jedie/poetry-publish/workflows/test/badge.svg?branch=master|Build Status on github}} | [[https://github.com/jedie/poetry-publish/actions?query=workflow%3Atest|github.com/jedie/poetry-publish/actions]] |
