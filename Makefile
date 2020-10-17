@@ -32,9 +32,9 @@ update: check-poetry ## Update the dependencies as according to the pyproject.to
 	poetry update
 
 lint: ## Run code formatters and linter
-	poetry run flynt --fail-on-change --line_length=${MAX_LINE_LENGTH} poetry_publish
-	poetry run isort --check-only --recursive poetry_publish
-	poetry run flake8 poetry_publish
+	poetry run flynt --fail-on-change --line_length=${MAX_LINE_LENGTH} .
+	poetry run isort --check-only .
+	poetry run flake8 .
 
 fix-code-style: ## Fix code formatting
 	poetry run flynt --line_length=${MAX_LINE_LENGTH} .
