@@ -93,7 +93,7 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
     call_info, output = verbose_check_output('poetry', 'check')
     if 'All set!' not in output:
         print(output)
-        confirm('Check failed!')
+        confirm('Poetry check failed!')
     else:
         print('OK')
 

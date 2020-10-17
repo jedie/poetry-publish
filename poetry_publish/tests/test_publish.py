@@ -257,7 +257,7 @@ def test_publish_abort_poetry_check_failed(capsys):
     assert check_output.behaviour == {}
 
     assert confirm.call_count == 1
-    assert confirm.calls == ['Check failed!']
+    assert confirm.calls == ['Poetry check failed!']
 
 
 def test_publish_confim_poetry_check_failed(capsys):
@@ -290,7 +290,7 @@ def test_publish_confim_poetry_check_failed(capsys):
     assert check_output.behaviour == {}
 
     assert confirm.call_count == 1
-    assert confirm.calls == ['Check failed!']
+    assert confirm.calls == ['Poetry check failed!']
 
 
 def test_publish_abort_repro_not_up_to_date(capsys):
