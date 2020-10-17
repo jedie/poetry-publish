@@ -213,6 +213,8 @@ history
 
 * *dev* - `compare v0.3.2...master <https://github.com/jedie/poetry-publish/compare/v0.3.2...master>`_ 
 
+    * Some meta updates to project setup
+
     * TBC
 
 * v0.3.2 - 2020-10-16 - `compare v0.3.1...v0.3.2 <https://github.com/jedie/poetry-publish/compare/v0.3.1...v0.3.2>`_ 
@@ -302,4 +304,4 @@ donation
 
 ------------
 
-``Note: this file is generated from README.creole 2020-10-16 17:34:56 with "python-creole"``
+``Note: this file is generated from README.creole 2020-10-17 21:21:06 with "python-creole"``

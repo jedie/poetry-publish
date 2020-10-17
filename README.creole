@@ -175,6 +175,7 @@ publish              Release new version to PyPi
 = history =
 
 * *dev* - [[https://github.com/jedie/poetry-publish/compare/v0.3.2...master|compare v0.3.2...master]]
+** Some meta updates to project setup
 ** TBC
 * v0.3.2 - 2020-10-16 - [[https://github.com/jedie/poetry-publish/compare/v0.3.1...v0.3.2|compare v0.3.1...v0.3.2]]
 ** Create git annotated tags instead of a lightweight tag. [[https://github.com/jedie/poetry-publish/issues/9|Contributed by sebhmg in #9]]
