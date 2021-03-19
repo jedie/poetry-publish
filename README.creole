@@ -4,14 +4,14 @@ Helper to build and upload a project that used poetry to PyPi, with prechecks:
 
 * User must confirm:
 ** If {{{__version__}}} contains 'dev' or 'rc'
-** If git repository is not on {{{master}}}
+** If git repository is not on {{{main}}} or {{{master}}}
 * Abort publish if git repository contains changes
 * Abort if git repository is not up-to-date
 * Abort if {{{poetry check}}} fails
 * Abort if {{{twine check}}} fails
 * Abort if git version tag already exists
 
-After a successfull upload to PyPi:
+After a successful upload to PyPi:
 
 * create a git version tag
 * git push tag to remote server

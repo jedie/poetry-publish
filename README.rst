@@ -8,7 +8,7 @@ Helper to build and upload a project that used poetry to PyPi, with prechecks:
 
     * If ``__version__`` contains 'dev' or 'rc'
 
-    * If git repository is not on ``master``
+    * If git repository is not on ``main`` or ``master``
 
 * Abort publish if git repository contains changes
 
@@ -20,7 +20,7 @@ Helper to build and upload a project that used poetry to PyPi, with prechecks:
 
 * Abort if git version tag already exists
 
-After a successfull upload to PyPi:
+After a successful upload to PyPi:
 
 * create a git version tag
 
@@ -314,4 +314,4 @@ donation
 
 ------------
 
-``Note: this file is generated from README.creole 2021-03-19 09:09:51 with "python-creole"``
+``Note: this file is generated from README.creole 2021-03-19 09:14:09 with "python-creole"``
