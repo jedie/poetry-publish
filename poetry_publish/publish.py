@@ -56,16 +56,21 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
     print('\nCheck if we are on "master" branch:')
     call_info, output = verbose_check_output('git', 'branch', '--no-color')
     print(f'\t{call_info}')
-    branch = None
+    current_branch = None
+    all_branches = set()
     for line in output.splitlines():
-        if line.startswith('* '):
-            branch = line.split(' ', 1)[1]
-            break
-    if branch is None:
+        branch = line.strip()
+        if branch:
+            if branch.startswith('* '):
+                branch = branch.split(' ', 1)[1]
+                current_branch = branch
+            all_branches.add(branch)
+
+    if current_branch is None:
         print(f'ERROR get git branch from: {output!r}')
         sys.exit(4)
 
-    if branch in ('main', 'master'):
+    if current_branch in ('main', 'master'):
         print('OK')
     else:
         confirm(f'\nNOTE: It seems you are not on "main" or "master":\n{output}')
@@ -101,7 +106,18 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
 
     print('\ncheck if pull is needed')
     verbose_check_call('git', 'fetch', '--all')
-    call_info, output = verbose_check_output('git', 'log', 'HEAD..origin/master', '--oneline')
+    main_branch = None
+    for branch_name in ('main', 'master'):
+        if branch_name in all_branches:
+            main_branch = branch_name
+            break
+    if not main_branch:
+        print(f'ERROR Did not find the "main" git branch in: {all_branches}')
+        sys.exit(4)
+
+    call_info, output = verbose_check_output(
+        'git', 'log', f'HEAD..origin/{main_branch}', '--oneline'
+    )
     print(f'\t{call_info}')
     if output == '':
         print('OK')
@@ -109,7 +125,7 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
         print('\n *** ERROR: git repro is not up-to-date:')
         print(output)
         sys.exit(2)
-    verbose_check_call('git', 'push', 'origin', branch)
+    verbose_check_call('git', 'push', 'origin', current_branch)
 
     # ------------------------------------------------------------------------
 

@@ -213,9 +213,13 @@ To see all make targets, just call ``make``:
 history
 =======
 
-* *dev* - `compare v0.4.0...master <https://github.com/jedie/poetry-publish/compare/v0.4.0...master>`_ 
+* *dev* - `compare v0.4.1...master <https://github.com/jedie/poetry-publish/compare/v0.4.1...master>`_ 
 
     * TBC
+
+* v0.4.1 - 2021-03-19 - `compare v0.4.0...v0.4.1 <https://github.com/jedie/poetry-publish/compare/v0.4.0...v0.4.1>`_ 
+
+    * Bugfix if git ``main`` branch is used, instead of ``master``
 
 * v0.4.0 - 2020-10-17 - `compare v0.3.2...v0.4.0 <https://github.com/jedie/poetry-publish/compare/v0.3.2...v0.4.0>`_ 
 
@@ -310,4 +314,4 @@ donation
 
 ------------
 
-``Note: this file is generated from README.creole 2020-10-17 23:24:17 with "python-creole"``
+``Note: this file is generated from README.creole 2021-03-19 09:09:51 with "python-creole"``
