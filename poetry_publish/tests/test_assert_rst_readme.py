@@ -22,4 +22,4 @@ def test_update_rst_readme(capsys):
     assert captured.out == 'Generate README.rst from README.creole...nothing changed, ok.\n'
     assert captured.err == ''
     assert isinstance(rest_readme_path, Path)
-    assert str(rest_readme_path).endswith('/README.rst')
+    assert rest_readme_path.name == 'README.rst'
