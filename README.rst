@@ -1,5 +1,5 @@
 ====================
-about poetry-publish
+About poetry-publish
 ====================
 
 Helper to build and upload a project that used poetry to PyPi, with prechecks:
@@ -28,7 +28,7 @@ After a successful upload to PyPi:
 
 Compatible Python Versions (see `tox.ini <https://github.com/jedie/poetry-publish/blob/master/tox.ini>`_ or `.travis.yml <https://github.com/jedie/poetry-publish/blob/master/.travis.yml>`_):
 
-* 3.9, 3.8, 3.7, 3.6
+* 3.10, 3.9, 3.8, 3.7, 3.6
 
 * PyPy3
 
@@ -62,58 +62,58 @@ example
 ::
 
     ~/repos/python-creole$ poetry run publish
-    
+
     Check if we are on "master" branch:
     	Call: 'git branch --no-color'
     OK
-    
+
     Set version in "pyproject.toml" to: v1.4.3
     	Call: 'poetry version 1.4.3'
-    
+
     Bumping version from 1.4.3 to 1.4.3
-    
+
     check if if git repro is clean:
     	Call: 'git status --porcelain'
     OK
-    
+
     Run "poetry check":
     OK
-    
+
     check if pull is needed
     	Call: 'git fetch --all'
-    
+
     Fordere an von origin
     	Call: 'git log HEAD..origin/master --oneline'
     OK
     	Call: 'git push'
-    
+
     Everything up-to-date
-    
+
     Cleanup old builds:
     	remove tree: /home/jens/repos/python-creole/dist
-    
+
     build but do not upload...
     	Call: 'poetry build'
     Build log file is here: 'publish.log'
-    
+
     check git tag
     OK
-    
+
     Upload to PyPi via poetry:
     	Call: 'poetry publish'
-    
-    
+
+
     Publishing python-creole (1.4.3) to PyPI
      - Uploading python-creole-1.4.3.tar.gz 100%
      - Uploading python_creole-1.4.3-py3-none-any.whl 100%
-    
+
     git tag version
     	Call: 'git tag v1.4.3'
-    
-    
+
+
     git push tag to server
     	Call: 'git push --tags'
-    
+
     Total 0 (delta 0), reused 0 (delta 0)
     To github.com:jedie/python-creole.git
      * [new tag]         v1.4.3 -> v1.4.3
@@ -127,11 +127,11 @@ Create a publish hook in you project, e.g. create ``your_project/publish.py`` wi
 ::
 
     from pathlib import Path
-    
+
     import your_project
     from poetry_publish.publish import poetry_publish
-    
-    
+
+
     def publish():
         poetry_publish(
             package_root=Path(your_project.__file__).parent.parent,
@@ -166,19 +166,19 @@ unittests
     # clone repository (or use your fork):
     ~$ git clone https://github.com/jedie/poetry-publish.git
     ~$ cd poetry-publish
-    
+
     # install or update poetry:
     ~/poetry-publish$ make install-poetry
-    
+
     # install poetry-publish via poetry:
     ~/poetry-publish$ make install
-    
+
     # Run pytest:
     ~/poetry-publish$ make pytest
-    
+
     # Run pytest via tox with all environments:
     ~/poetry-publish$ make tox
-    
+
     # Run pytest via tox with one Python version:
     ~/poetry-publish$ make tox-py38
     ~/poetry-publish$ make tox-py37
@@ -213,21 +213,29 @@ To see all make targets, just call ``make``:
 history
 =======
 
-* *dev* - `compare v0.4.1...master <https://github.com/jedie/poetry-publish/compare/v0.4.1...master>`_ 
+* *dev* - `compare v0.5.0rc2...master <https://github.com/jedie/poetry-publish/compare/v0.5.0rc2...master>`_
 
     * TBC
 
-* v0.4.1 - 2021-03-19 - `compare v0.4.0...v0.4.1 <https://github.com/jedie/poetry-publish/compare/v0.4.0...v0.4.1>`_ 
+* v0.5.0rc2 - 2022-07-19 - `compare v0.4.1...v0.5.0rc2 <https://github.com/jedie/poetry-publish/compare/v0.4.1...v0.5.0rc2>`_
+
+    * Test with Python 3.10
+
+    * Fix twine check call.
+
+    * Fix ``poetry publish`` call.
+
+* v0.4.1 - 2021-03-19 - `compare v0.4.0...v0.4.1 <https://github.com/jedie/poetry-publish/compare/v0.4.0...v0.4.1>`_
 
     * Bugfix if git ``main`` branch is used, instead of ``master``
 
-* v0.4.0 - 2020-10-17 - `compare v0.3.2...v0.4.0 <https://github.com/jedie/poetry-publish/compare/v0.3.2...v0.4.0>`_ 
+* v0.4.0 - 2020-10-17 - `compare v0.3.2...v0.4.0 <https://github.com/jedie/poetry-publish/compare/v0.3.2...v0.4.0>`_
 
     * Call ``twine check dist/*.*``, too.
 
     * Some meta updates to project setup
 
-* v0.3.2 - 2020-10-16 - `compare v0.3.1...v0.3.2 <https://github.com/jedie/poetry-publish/compare/v0.3.1...v0.3.2>`_ 
+* v0.3.2 - 2020-10-16 - `compare v0.3.1...v0.3.2 <https://github.com/jedie/poetry-publish/compare/v0.3.1...v0.3.2>`_
 
     * Create git annotated tags instead of a lightweight tag. `Contributed by sebhmg in #9 <https://github.com/jedie/poetry-publish/issues/9>`_
 
@@ -243,13 +251,13 @@ history
 
     * Run tests with Python 3.9, too
 
-* v0.3.1 - 2020-02-19 - `compare v0.3.0...v0.3.1 <https://github.com/jedie/poetry-publish/compare/v0.3.0...v0.3.1>`_ 
+* v0.3.1 - 2020-02-19 - `compare v0.3.0...v0.3.1 <https://github.com/jedie/poetry-publish/compare/v0.3.0...v0.3.1>`_
 
     * less restricted dependency specification
 
     * Add: |poetry_publish.tests.test_project_setup.test_assert_rst_readme|}
 
-* v0.3.0 - 2020-02-10 - `compare v0.2.3...v0.3.0 <https://github.com/jedie/poetry-publish/compare/v0.2.3...v0.3.0>`_ 
+* v0.3.0 - 2020-02-10 - `compare v0.2.3...v0.3.0 <https://github.com/jedie/poetry-publish/compare/v0.2.3...v0.3.0>`_
 
     * Poetry publish error -> fallback and use twine
 
@@ -259,15 +267,15 @@ history
 
     * add isort config
 
-* v0.2.3 - 2020-02-02 - `compare v0.2.2...v0.2.3 <https://github.com/jedie/poetry-publish/compare/v0.2.2...v0.2.3>`_ 
+* v0.2.3 - 2020-02-02 - `compare v0.2.2...v0.2.3 <https://github.com/jedie/poetry-publish/compare/v0.2.2...v0.2.3>`_
 
     * make ``poetry_publish.tests.test_project_setup`` usable for external packages
 
-* v0.2.2 - 2020-02-01 - `compare v0.2.1...v0.2.2 <https://github.com/jedie/poetry-publish/compare/v0.2.1...v0.2.2>`_ 
+* v0.2.2 - 2020-02-01 - `compare v0.2.1...v0.2.2 <https://github.com/jedie/poetry-publish/compare/v0.2.1...v0.2.2>`_
 
     * Fix missing project description on PyPi
 
-* v0.2.1 - 2020-02-01 - `compare v0.2.0...v0.2.1 <https://github.com/jedie/poetry-publish/compare/v0.2.0...v0.2.1>`_ 
+* v0.2.1 - 2020-02-01 - `compare v0.2.0...v0.2.1 <https://github.com/jedie/poetry-publish/compare/v0.2.0...v0.2.1>`_
 
     * call "poetry version" after "branch is master" check
 
@@ -281,7 +289,7 @@ history
 
     * update README
 
-* v0.2.0 - 2020-02-01 - `compare 92e584...v0.2.0 <https://github.com/jedie/poetry-publish/compare/92e584ed8532c577feb971a5d8630cc1929ad6eb...v0.2.0>`_ 
+* v0.2.0 - 2020-02-01 - `compare 92e584...v0.2.0 <https://github.com/jedie/poetry-publish/compare/92e584ed8532c577feb971a5d8630cc1929ad6eb...v0.2.0>`_
 
     * first released version cut out from `python-creole <https://github.com/jedie/python-creole>`_
 
@@ -314,4 +322,4 @@ donation
 
 ------------
 
-``Note: this file is generated from README.creole 2021-03-19 09:14:09 with "python-creole"``
+``Note: this file is generated from README.creole 2022-07-19 12:48:48 with "python-creole"``
