@@ -15,6 +15,7 @@ import sys
 from poetry_publish.utils import update_rst_readme
 from poetry_publish.utils.interactive import confirm
 from poetry_publish.utils.subprocess_utils import verbose_check_call, verbose_check_output
+from poetry_publish.utils.twine_check import run_twine_check
 
 
 def poetry_publish(package_root, version, log_filename='publish.log', creole_readme=False):
@@ -156,22 +157,7 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
 
     # ------------------------------------------------------------------------
 
-    print('\nRun "twine check":')
-    call_info, output = verbose_check_output('poetry', 'run', 'twine', 'check', 'dist/*.*')
-    print(f'\t{call_info}')
-    checks = []
-    for line in output.splitlines():
-        if line.endswith('PASSED'):
-            print(f'\t{line}')
-            checks.append(True)
-        else:
-            print(f'ERROR: {line}')
-            checks.append(False)
-
-    if True not in checks or False in checks:
-        confirm('Twine check failed!')
-    else:
-        print('OK')
+    run_twine_check()
 
     # ------------------------------------------------------------------------
 
@@ -189,7 +175,8 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
     # ------------------------------------------------------------------------
 
     print('\nUpload to PyPi via poetry:')
-    args = ['poetry', 'publish'] + sys.argv[1:]
+    extra_args = [arg for arg in sys.argv[1:] if arg != 'publish']
+    args = ['poetry', 'publish'] + extra_args
     if '-vvv' not in sys.argv:
         args.append('-vvv')
 
@@ -197,7 +184,7 @@ def poetry_publish(package_root, version, log_filename='publish.log', creole_rea
         verbose_check_call(*args)
     except subprocess.CalledProcessError:
         print('\nPoetry publish error -> fallback and use twine')
-        verbose_check_call('poetry', 'run', 'twine', 'upload', 'dist/*.*')
+        verbose_check_call('poetry', 'run', 'twine', 'upload', 'dist/*.*', *extra_args)
 
     # ------------------------------------------------------------------------
 
