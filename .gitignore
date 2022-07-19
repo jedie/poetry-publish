@@ -13,5 +13,7 @@ coverage.xml
 /dist
 /build
 /publish.log
+/htmlcov/
+coverage.xml
 
 /poetry.lock

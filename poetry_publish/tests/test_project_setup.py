@@ -62,4 +62,4 @@ def test_poetry_check(package_root=None):
         cwd=str(package_root),
     )
     print(output)
-    assert output == 'All set!\n'
+    assert output.strip() == 'All set!'

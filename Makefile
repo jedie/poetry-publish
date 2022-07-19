@@ -16,31 +16,23 @@ check-poetry:
 	fi
 
 install-poetry: ## install or update poetry
-	@if [[ "${POETRY_VERSION}" == *"Poetry"* ]] ; \
-	then \
-		echo 'Update poetry v$(POETRY_VERSION)' ; \
-		poetry self update ; \
-	else \
-		echo 'Install poetry' ; \
-		curl -sSL "https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py" | python3 ; \
-	fi
+	pip3 install -U poetry
 
 install: check-poetry ## install python-poetry_publish via poetry
 	poetry install
 
-update: check-poetry ## Update the dependencies as according to the pyproject.toml file
+update: check-poetry ## update the sources and installation
+	git fetch --all
+	git pull origin main
 	poetry update
 
 lint: ## Run code formatters and linter
-	poetry run flynt --fail-on-change -ll ${MAX_LINE_LENGTH} .
-	poetry run isort --check-only .
-	poetry run flake8 .
+	poetry run darker --diff --check
+	poetry run flake8 poetry_publish
 
 fix-code-style: ## Fix code formatting
-	poetry run flynt -ll ${MAX_LINE_LENGTH} .
-	poetry run pyupgrade --exit-zero-even-if-changed --py3-plus --py36-plus --py37-plus `find . -name "*.py" -type f -not -path "./.tox/*"`
-	poetry run isort .
-	poetry run autopep8 --aggressive --aggressive --in-place --recursive .
+	poetry run darker
+	poetry run flake8 poetry_publish
 
 tox-listenvs: check-poetry ## List all tox test environments
 	poetry run tox --listenvs
