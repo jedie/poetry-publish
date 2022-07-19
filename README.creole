@@ -175,9 +175,9 @@ publish              Release new version to PyPi
 
 = history =
 
-* *dev* - [[https://github.com/jedie/poetry-publish/compare/v0.5.0rc2...master|compare v0.5.0rc2...master]]
+* *dev* - [[https://github.com/jedie/poetry-publish/compare/v0.5.0...master|compare v0.5.0...master]]
 ** TBC
-* v0.5.0rc2 - 2022-07-19 - [[https://github.com/jedie/poetry-publish/compare/v0.4.1...v0.5.0rc2|compare v0.4.1...v0.5.0rc2]]
+* v0.5.0 - 2022-07-19 - [[https://github.com/jedie/poetry-publish/compare/v0.4.1...v0.5.0|compare v0.4.1...v0.5.0]]
 ** Test with Python 3.10
 ** Fix twine check call.
 ** Fix {{{poetry publish}}} call.

@@ -213,11 +213,11 @@ To see all make targets, just call ``make``:
 history
 =======
 
-* *dev* - `compare v0.5.0rc2...master <https://github.com/jedie/poetry-publish/compare/v0.5.0rc2...master>`_
+* *dev* - `compare v0.5.0...master <https://github.com/jedie/poetry-publish/compare/v0.5.0...master>`_
 
     * TBC
 
-* v0.5.0rc2 - 2022-07-19 - `compare v0.4.1...v0.5.0rc2 <https://github.com/jedie/poetry-publish/compare/v0.4.1...v0.5.0rc2>`_
+* v0.5.0 - 2022-07-19 - `compare v0.4.1...v0.5.0 <https://github.com/jedie/poetry-publish/compare/v0.4.1...v0.5.0>`_
 
     * Test with Python 3.10
 
