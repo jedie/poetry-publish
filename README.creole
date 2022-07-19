@@ -1,4 +1,4 @@
-= about poetry-publish =
+= About poetry-publish =
 
 Helper to build and upload a project that used poetry to PyPi, with prechecks:
 
@@ -17,7 +17,7 @@ After a successful upload to PyPi:
 * git push tag to remote server
 
 Compatible Python Versions (see [[https://github.com/jedie/poetry-publish/blob/master/tox.ini|tox.ini]] or [[https://github.com/jedie/poetry-publish/blob/master/.travis.yml|.travis.yml]]):
- * 3.9, 3.8, 3.7, 3.6
+ * 3.10, 3.9, 3.8, 3.7, 3.6
  * PyPy3
 
 | {{https://github.com/jedie/poetry-publish/workflows/test/badge.svg?branch=master|Build Status on github}} | [[https://github.com/jedie/poetry-publish/actions?query=workflow%3Atest|github.com/jedie/poetry-publish/actions]] |
@@ -175,8 +175,12 @@ publish              Release new version to PyPi
 
 = history =
 
-* *dev* - [[https://github.com/jedie/poetry-publish/compare/v0.4.1...master|compare v0.4.1...master]]
+* *dev* - [[https://github.com/jedie/poetry-publish/compare/v0.5.0rc1...master|compare v0.5.0rc1...master]]
 ** TBC
+* v0.5.0rc1 - 2022-07-19 - [[https://github.com/jedie/poetry-publish/compare/v0.4.1...v0.5.0rc1|compare v0.4.1...v0.5.0rc1]]
+** Test with Python 3.10
+** Fix twine check call.
+** Fix {{{poetry publish}}} call.
 * v0.4.1 - 2021-03-19 - [[https://github.com/jedie/poetry-publish/compare/v0.4.0...v0.4.1|compare v0.4.0...v0.4.1]]
 ** Bugfix if git {{{main}}} branch is used, instead of {{{master}}}
 * v0.4.0 - 2020-10-17 - [[https://github.com/jedie/poetry-publish/compare/v0.3.2...v0.4.0|compare v0.3.2...v0.4.0]]

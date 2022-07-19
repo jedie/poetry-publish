@@ -4,7 +4,7 @@ import subprocess
 
 def verbose_check_output(*args, log=None):
     """ 'verbose' version of subprocess.check_output() """
-    call_info = 'Call: %r' % ' '.join(args)
+    call_info = f"Call: {' '.join(args)!r}"
     try:
         output = subprocess.check_output(
             args, universal_newlines=True, env=os.environ,
@@ -21,7 +21,7 @@ def verbose_check_output(*args, log=None):
 
 def verbose_check_call(*args):
     """ 'verbose' version of subprocess.check_call() """
-    print('\tCall: %r\n' % ' '.join(args))
+    print(f"\tCall: {' '.join(args)!r}\n")
     subprocess.check_call(
         args,
         universal_newlines=True,

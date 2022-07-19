@@ -1,5 +1,5 @@
 ====================
-about poetry-publish
+About poetry-publish
 ====================
 
 Helper to build and upload a project that used poetry to PyPi, with prechecks:
@@ -28,7 +28,7 @@ After a successful upload to PyPi:
 
 Compatible Python Versions (see `tox.ini <https://github.com/jedie/poetry-publish/blob/master/tox.ini>`_ or `.travis.yml <https://github.com/jedie/poetry-publish/blob/master/.travis.yml>`_):
 
-* 3.9, 3.8, 3.7, 3.6
+* 3.10, 3.9, 3.8, 3.7, 3.6
 
 * PyPy3
 
@@ -213,9 +213,17 @@ To see all make targets, just call ``make``:
 history
 =======
 
-* *dev* - `compare v0.4.1...master <https://github.com/jedie/poetry-publish/compare/v0.4.1...master>`_ 
+* *dev* - `compare v0.5.0rc1...master <https://github.com/jedie/poetry-publish/compare/v0.5.0rc1...master>`_ 
 
     * TBC
+
+* v0.5.0rc1 - 2022-07-19 - `compare v0.4.1...v0.5.0rc1 <https://github.com/jedie/poetry-publish/compare/v0.4.1...v0.5.0rc1>`_ 
+
+    * Test with Python 3.10
+
+    * Fix twine check call.
+
+    * Fix ``poetry publish`` call.
 
 * v0.4.1 - 2021-03-19 - `compare v0.4.0...v0.4.1 <https://github.com/jedie/poetry-publish/compare/v0.4.0...v0.4.1>`_ 
 
@@ -314,4 +322,4 @@ donation
 
 ------------
 
-``Note: this file is generated from README.creole 2021-03-19 09:14:09 with "python-creole"``
+``Note: this file is generated from README.creole 2022-07-19 12:48:48 with "python-creole"``
